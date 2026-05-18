@@ -9,228 +9,115 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg:        #0a0c10;
-    --bg2:       #111318;
-    --bg3:       #181b22;
-    --border:    rgba(255,255,255,0.07);
-    --accent:    #e8c84a;
-    --accent2:   #f0a500;
-    --text:      #e8eaf0;
-    --muted:     #6b7280;
-    --muted2:    #9ca3af;
-    --red:       #ef4444;
-    --green:     #22c55e;
-    --blue:      #3b82f6;
-    --font-head: 'Barlow Condensed', sans-serif;
-    --font-body: 'Barlow', sans-serif;
-    --radius:    6px;
-    --t: 0.2s ease;
+    --bg:#0a0c10; --bg2:#111318; --bg3:#181b22;
+    --border:rgba(255,255,255,0.07);
+    --accent:#e8c84a; --accent2:#f0a500;
+    --text:#e8eaf0; --muted:#6b7280; --muted2:#9ca3af;
+    --red:#ef4444; --green:#22c55e; --blue:#3b82f6;
+    --fh:'Barlow Condensed',sans-serif; --fb:'Barlow',sans-serif;
+    --r:6px; --t:0.2s ease;
   }
+  body { background:var(--bg); color:var(--text); font-family:var(--fb); font-size:15px; line-height:1.5; min-height:100vh; overflow-x:hidden; }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-body);
-    font-size: 15px;
-    line-height: 1.5;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+  header { position:sticky; top:0; z-index:100; background:rgba(10,12,16,0.94); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); padding:0 28px; height:60px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+  .logo { display:flex; align-items:center; gap:10px; }
+  .logo-icon { width:34px; height:34px; background:var(--accent); border-radius:4px; display:flex; align-items:center; justify-content:center; }
+  .logo-icon svg { width:19px; height:19px; fill:#0a0c10; }
+  .logo-text { font-family:var(--fh); font-size:21px; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; }
+  .logo-text span { color:var(--accent); }
+  .controls { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  select { background:var(--bg3); border:1px solid var(--border); color:var(--text); font-family:var(--fh); font-size:15px; font-weight:600; letter-spacing:0.03em; padding:7px 30px 7px 12px; border-radius:var(--r); cursor:pointer; outline:none; transition:border-color var(--t); -webkit-appearance:none; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 10px center; }
+  select:hover, select:focus { border-color:var(--accent); }
+  select option { background:var(--bg2); }
+  .btn { font-family:var(--fh); font-size:14px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:7px 18px; border-radius:var(--r); border:none; cursor:pointer; transition:all var(--t); }
+  .btn-primary { background:var(--accent); color:#0a0c10; }
+  .btn-primary:hover { background:var(--accent2); transform:translateY(-1px); }
+  .btn-primary:disabled { opacity:0.45; cursor:not-allowed; transform:none; }
 
-  /* ── HEADER ─────────────────────────────────────────────────────── */
-  header {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(10,12,16,0.94);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 28px;
-    height: 60px;
-    display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  }
+  main { max-width:1380px; margin:0 auto; padding:28px 20px 64px; }
 
-  .logo { display: flex; align-items: center; gap: 10px; }
-  .logo-icon {
-    width: 34px; height: 34px;
-    background: var(--accent); border-radius: 4px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .logo-icon svg { width: 19px; height: 19px; fill: #0a0c10; }
-  .logo-text {
-    font-family: var(--font-head); font-size: 21px; font-weight: 800;
-    letter-spacing: 0.04em; text-transform: uppercase;
-  }
-  .logo-text span { color: var(--accent); }
+  .banner { display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; padding:18px 24px; background:var(--bg2); border:1px solid var(--border); border-radius:10px; position:relative; overflow:hidden; }
+  .banner::before { content:''; position:absolute; right:-40px; top:-40px; width:180px; height:180px; background:radial-gradient(circle,rgba(232,200,74,0.07) 0%,transparent 70%); pointer-events:none; }
+  .banner h1 { font-family:var(--fh); font-size:30px; font-weight:900; text-transform:uppercase; letter-spacing:0.04em; line-height:1; }
+  .banner h1 span { color:var(--accent); }
+  .banner p { color:var(--muted2); font-size:12px; margin-top:3px; }
+  .banner-meta { display:flex; gap:24px; }
+  .meta-v { font-family:var(--fh); font-size:28px; font-weight:800; color:var(--accent); line-height:1; }
+  .meta-l { font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-top:2px; }
 
-  .controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .tabs { display:flex; gap:2px; margin-bottom:24px; background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:4px; width:fit-content; }
+  .tab { font-family:var(--fh); font-size:13px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:7px 18px; border-radius:5px; border:none; background:transparent; color:var(--muted2); cursor:pointer; transition:all var(--t); }
+  .tab:hover { color:var(--text); }
+  .tab.active { background:var(--accent); color:#0a0c10; }
 
-  select {
-    background: var(--bg3); border: 1px solid var(--border);
-    color: var(--text); font-family: var(--font-head); font-size: 15px; font-weight: 600;
-    letter-spacing: 0.03em; padding: 7px 30px 7px 12px; border-radius: var(--radius);
-    cursor: pointer; outline: none; transition: border-color var(--t);
-    -webkit-appearance: none; appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat; background-position: right 10px center;
-  }
-  select:hover, select:focus { border-color: var(--accent); }
-  select option { background: var(--bg2); }
+  .panel { display:none; animation:fadeIn 0.22s ease; }
+  .panel.active { display:block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:none} }
 
-  .btn {
-    font-family: var(--font-head); font-size: 14px; font-weight: 700;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 7px 18px; border-radius: var(--radius); border: none; cursor: pointer;
-    transition: all var(--t);
-  }
-  .btn-primary { background: var(--accent); color: #0a0c10; }
-  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
-  .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+  .sec { font-family:var(--fh); font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+  .sec::after { content:''; flex:1; height:1px; background:var(--border); }
 
-  /* ── MAIN ────────────────────────────────────────────────────────── */
-  main { max-width: 1380px; margin: 0 auto; padding: 28px 20px 64px; }
+  .table-wrap { overflow-x:auto; border-radius:8px; border:1px solid var(--border); margin-bottom:28px; }
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  thead th { background:var(--bg3); padding:9px 13px; text-align:left; font-family:var(--fh); font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); white-space:nowrap; border-bottom:1px solid var(--border); }
+  tbody tr { border-bottom:1px solid var(--border); transition:background var(--t); }
+  tbody tr:last-child { border-bottom:none; }
+  tbody tr:hover { background:rgba(255,255,255,0.025); }
+  tbody td { padding:10px 13px; white-space:nowrap; }
+  .rank { font-family:var(--fh); font-weight:800; font-size:16px; color:var(--muted); width:36px; }
+  .rank.g1 { color:var(--accent); }
+  .rank.g2 { color:var(--blue); }
+  .tc { display:flex; align-items:center; gap:9px; }
+  .tlogo { width:28px; height:28px; border-radius:50%; overflow:hidden; background:var(--bg3); border:1px solid var(--border); flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+  .tlogo img { width:100%; height:100%; object-fit:contain; }
+  .tlogo-text { font-family:var(--fh); font-size:8px; font-weight:700; color:var(--muted); }
+  .tname { font-family:var(--fh); font-size:15px; font-weight:700; }
+  .tcode { font-size:10px; color:var(--muted); letter-spacing:0.05em; }
+  .num { font-family:var(--fh); font-size:15px; font-weight:600; text-align:right; }
+  .w { color:var(--green); } .l { color:var(--red); }
+  .bar { display:flex; align-items:center; gap:5px; min-width:90px; }
+  .bar-bg { flex:1; height:4px; background:var(--bg3); border-radius:2px; overflow:hidden; }
+  .bar-fill { height:100%; background:linear-gradient(90deg,var(--accent2),var(--accent)); border-radius:2px; transition:width 0.8s cubic-bezier(0.16,1,0.3,1); }
+  .bar-pct { font-family:var(--fh); font-size:12px; font-weight:600; color:var(--muted2); width:34px; text-align:right; }
 
-  /* ── BANNER ──────────────────────────────────────────────────────── */
-  .banner {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 28px; padding: 18px 24px;
-    background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;
-    position: relative; overflow: hidden;
-  }
-  .banner::before {
-    content: ''; position: absolute; right: -40px; top: -40px;
-    width: 180px; height: 180px;
-    background: radial-gradient(circle, rgba(232,200,74,0.07) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .banner h1 {
-    font-family: var(--font-head); font-size: 30px; font-weight: 900;
-    text-transform: uppercase; letter-spacing: 0.04em; line-height: 1;
-  }
-  .banner h1 span { color: var(--accent); }
-  .banner p { color: var(--muted2); font-size: 12px; margin-top: 3px; }
-  .banner-meta { display: flex; gap: 24px; }
-  .meta-v { font-family: var(--font-head); font-size: 28px; font-weight: 800; color: var(--accent); line-height: 1; }
-  .meta-l { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-top: 2px; }
+  .filter-bar { display:flex; align-items:center; gap:10px; margin-bottom:20px; flex-wrap:wrap; }
+  .filter-label { font-family:var(--fh); font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); }
 
-  /* ── TABS ────────────────────────────────────────────────────────── */
-  .tabs {
-    display: flex; gap: 2px; margin-bottom: 24px;
-    background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 8px; padding: 4px; width: fit-content;
-  }
-  .tab {
-    font-family: var(--font-head); font-size: 13px; font-weight: 700;
-    letter-spacing: 0.06em; text-transform: uppercase;
-    padding: 7px 18px; border-radius: 5px; border: none;
-    background: transparent; color: var(--muted2); cursor: pointer; transition: all var(--t);
-  }
-  .tab:hover { color: var(--text); }
-  .tab.active { background: var(--accent); color: #0a0c10; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(155px,1fr)); gap:10px; margin-bottom:24px; }
+  .card { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:14px 16px; position:relative; overflow:hidden; transition:border-color var(--t),transform var(--t); }
+  .card:hover { border-color:rgba(232,200,74,0.3); transform:translateY(-2px); }
+  .card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--accent); opacity:0; transition:opacity var(--t); }
+  .card:hover::before { opacity:1; }
+  .card-label { font-family:var(--fh); font-size:9px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:5px; }
+  .card-value { font-family:var(--fh); font-size:34px; font-weight:900; line-height:1; }
+  .card-sub { font-size:10px; color:var(--muted); margin-top:3px; }
 
-  /* ── PANELS ──────────────────────────────────────────────────────── */
-  .panel { display: none; animation: fadeIn 0.22s ease; }
-  .panel.active { display: block; }
-  @keyframes fadeIn { from { opacity:0; transform: translateY(5px); } to { opacity:1; transform:none; } }
+  .pir { display:inline-block; background:rgba(232,200,74,0.12); color:var(--accent); font-family:var(--fh); font-weight:700; font-size:14px; padding:1px 7px; border-radius:4px; }
+  .pavatar { width:28px; height:28px; border-radius:50%; background:var(--bg3); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:var(--fh); font-size:9px; font-weight:700; color:var(--accent); flex-shrink:0; }
 
-  /* ── SECTION TITLE ───────────────────────────────────────────────── */
-  .sec {
-    font-family: var(--font-head); font-size: 12px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted);
-    margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
-  }
-  .sec::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .round-wrap { display:flex; align-items:center; gap:8px; margin-bottom:16px; }
 
-  /* ── TABLE ───────────────────────────────────────────────────────── */
-  .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 28px; }
-  table { width: 100%; border-collapse: collapse; font-size: 14px; }
-  thead th {
-    background: var(--bg3); padding: 9px 13px; text-align: left;
-    font-family: var(--font-head); font-size: 10px; font-weight: 700;
-    letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
-    white-space: nowrap; border-bottom: 1px solid var(--border);
-  }
-  tbody tr { border-bottom: 1px solid var(--border); transition: background var(--t); }
-  tbody tr:last-child { border-bottom: none; }
-  tbody tr:hover { background: rgba(255,255,255,0.025); }
-  tbody td { padding: 10px 13px; white-space: nowrap; }
+  .loading { display:flex; align-items:center; justify-content:center; gap:10px; padding:52px 0; color:var(--muted2); font-family:var(--fh); font-size:15px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; }
+  .spin { width:18px; height:18px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin 0.65s linear infinite; }
+  @keyframes spin { to{transform:rotate(360deg)} }
+  .err { background:rgba(239,68,68,0.07); border:1px solid rgba(239,68,68,0.2); border-radius:8px; padding:18px 20px; color:#fca5a5; font-size:13px; }
+  .err strong { display:block; font-family:var(--fh); font-size:15px; font-weight:700; margin-bottom:3px; color:var(--red); }
+  .empty { padding:44px; text-align:center; color:var(--muted); font-family:var(--fh); font-size:15px; letter-spacing:0.06em; }
 
-  .rank { font-family: var(--font-head); font-weight: 800; font-size: 16px; color: var(--muted); width: 36px; }
-  .rank.g1 { color: var(--accent); }
-  .rank.g2 { color: var(--blue); }
+  th.sortable { cursor:pointer; user-select:none; }
+  th.sortable:hover { color:var(--accent); }
+  th.sortable.asc::after  { content:' ↑'; }
+  th.sortable.desc::after { content:' ↓'; }
 
-  .tc { display: flex; align-items: center; gap: 9px; }
-  .tlogo {
-    width: 26px; height: 26px; border-radius: 50%;
-    background: var(--bg3); border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-head); font-size: 8px; font-weight: 700; color: var(--muted);
-    flex-shrink: 0;
-  }
-  .tname { font-family: var(--font-head); font-size: 15px; font-weight: 700; }
-  .tcode { font-size: 10px; color: var(--muted); letter-spacing: 0.05em; }
+  .f4-badge { display:inline-flex; align-items:center; gap:5px; background:rgba(232,200,74,0.12); border:1px solid rgba(232,200,74,0.3); color:var(--accent); font-family:var(--fh); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:3px 8px; border-radius:4px; margin-left:10px; }
 
-  .num { font-family: var(--font-head); font-size: 15px; font-weight: 600; text-align: right; }
-  .w { color: var(--green); } .l { color: var(--red); }
-
-  .bar { display: flex; align-items: center; gap: 5px; min-width: 90px; }
-  .bar-bg { flex: 1; height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; }
-  .bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent)); border-radius: 2px; transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-  .bar-pct { font-family: var(--font-head); font-size: 12px; font-weight: 600; color: var(--muted2); width: 34px; text-align: right; }
-
-  /* ── STAT CARDS ──────────────────────────────────────────────────── */
-  .filter-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-  .filter-label { font-family: var(--font-head); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-
-  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-bottom: 24px; }
-  .card {
-    background: var(--bg2); border: 1px solid var(--border); border-radius: 8px;
-    padding: 14px 16px; position: relative; overflow: hidden;
-    transition: border-color var(--t), transform var(--t);
-  }
-  .card:hover { border-color: rgba(232,200,74,0.3); transform: translateY(-2px); }
-  .card::before {
-    content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
-    background: var(--accent); opacity: 0; transition: opacity var(--t);
-  }
-  .card:hover::before { opacity: 1; }
-  .card-label { font-family: var(--font-head); font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
-  .card-value { font-family: var(--font-head); font-size: 34px; font-weight: 900; line-height: 1; }
-  .card-sub { font-size: 10px; color: var(--muted); margin-top: 3px; }
-
-  /* ── PIR / Avatar ────────────────────────────────────────────────── */
-  .pir { display: inline-block; background: rgba(232,200,74,0.12); color: var(--accent); font-family: var(--font-head); font-weight: 700; font-size: 14px; padding: 1px 7px; border-radius: 4px; }
-  .pavatar {
-    width: 28px; height: 28px; border-radius: 50%;
-    background: var(--bg3); border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-head); font-size: 9px; font-weight: 700; color: var(--accent);
-    flex-shrink: 0;
-  }
-
-  /* ── Round selector ──────────────────────────────────────────────── */
-  .round-wrap { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
-
-  /* ── LOADING / ERROR / EMPTY ─────────────────────────────────────── */
-  .loading { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 52px 0; color: var(--muted2); font-family: var(--font-head); font-size: 15px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
-  .spin { width: 18px; height: 18px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.65s linear infinite; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .err { background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.2); border-radius: 8px; padding: 18px 20px; color: #fca5a5; font-size: 13px; }
-  .err strong { display: block; font-family: var(--font-head); font-size: 15px; font-weight: 700; margin-bottom: 3px; color: var(--red); }
-  .empty { padding: 44px; text-align: center; color: var(--muted); font-family: var(--font-head); font-size: 15px; letter-spacing: 0.06em; }
-
-  /* ── Sortable headers ────────────────────────────────────────────── */
-  th.sortable { cursor: pointer; user-select: none; }
-  th.sortable:hover { color: var(--accent); }
-  th.sortable.asc::after  { content: ' ↑'; }
-  th.sortable.desc::after { content: ' ↓'; }
-
-  @media (max-width: 700px) {
-    header { padding: 10px 14px; flex-wrap: wrap; height: auto; gap: 10px; }
-    .controls { width: 100%; }
-    main { padding: 16px 10px 48px; }
-    .banner { flex-direction: column; align-items: flex-start; gap: 12px; }
-    .cards { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  @media (max-width:700px) {
+    header { padding:10px 14px; flex-wrap:wrap; height:auto; gap:10px; }
+    .controls { width:100%; }
+    main { padding:16px 10px 48px; }
+    .banner { flex-direction:column; align-items:flex-start; gap:12px; }
+    .cards { grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); }
   }
 </style>
 </head>
@@ -245,12 +132,12 @@
   </div>
   <div class="controls">
     <select id="seasonSel">
-      <option value="E2025">2025–26</option>
-      <option value="E2024">2024–25</option>
-      <option value="E2023">2023–24</option>
-      <option value="E2022">2022–23</option>
-      <option value="E2021">2021–22</option>
-      <option value="E2020">2020–21</option>
+      <option value="2025">2025–26 ★</option>
+      <option value="2024">2024–25</option>
+      <option value="2023">2023–24</option>
+      <option value="2022">2022–23</option>
+      <option value="2021">2021–22</option>
+      <option value="2020">2020–21</option>
     </select>
     <button class="btn btn-primary" id="loadBtn" onclick="loadSeason()">Load</button>
   </div>
@@ -303,395 +190,465 @@
 </main>
 
 <script>
-const PROXY   = 'https://euroleague-proxy.st-gardelis.workers.dev';
-const COMP    = 'E';
-const BASE_V3 = `/v3/competitions/${COMP}`;
-
+const PROXY = 'https://euroleague-proxy.st-gardelis.workers.dev';
+const COMP  = 'E';
 const SEASON_LABELS = {
-  E2025:'2025–26', E2024:'2024–25', E2023:'2023–24',
-  E2022:'2022–23', E2021:'2021–22', E2020:'2020–21',
+  2025:'2025–26', 2024:'2024–25', 2023:'2023–24',
+  2022:'2022–23', 2021:'2021–22', 2020:'2020–21',
 };
+// Max rounds per season
+const MAX_ROUNDS = { 2025:38, 2024:34, 2023:34, 2022:34, 2021:34, 2020:34 };
 
-let currentSeason = 'E2025';
-let allClubs      = [];
-let allTeamStats  = [];
+let currentYear  = 2025;
+let allTeamStats = [];
+let allClubs     = [];
 
 // ── API ───────────────────────────────────────────────────────────────────
 async function apiFetch(path, params = {}) {
-  const qs  = new URLSearchParams(params).toString();
+  const qs  = new URLSearchParams(
+    Object.fromEntries(Object.entries(params).filter(([,v]) => v != null))
+  ).toString();
   const url = `${PROXY}${path}${qs ? '?' + qs : ''}`;
   const res = await fetch(url, { headers: { Accept: 'application/json' } });
-  if (!res.ok) throw new Error(`HTTP ${res.status} — ${path}`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const text = await res.text();
-  if (!text || !text.trim()) throw new Error(`Κενή απάντηση από ${path}`);
+  if (!text.trim()) throw new Error('Κενή απάντηση');
   return JSON.parse(text);
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────
-const setLoading = el => el.innerHTML = `<div class="loading"><div class="spin"></div>Φόρτωση...</div>`;
-const setEmpty   = (el, msg = 'Δεν βρέθηκαν δεδομένα.') => el.innerHTML = `<div class="empty">${msg}</div>`;
-const setError   = (el, msg) => el.innerHTML = `<div class="err"><strong>Σφάλμα</strong>${msg}</div>`;
-const fmt        = (v, d = 1) => { const n = parseFloat(v); return isNaN(n) ? '—' : n.toFixed(d); };
-const ini        = name => name ? name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase() : '?';
-const asPct      = v => v == null ? '—' : (v > 1 ? fmt(v) : fmt(v * 100)) + '%';
+const setLoad  = el => el.innerHTML = `<div class="loading"><div class="spin"></div>Φόρτωση...</div>`;
+const setEmpty = (el, m='Δεν βρέθηκαν δεδομένα.') => el.innerHTML = `<div class="empty">${m}</div>`;
+const setErr   = (el, m) => el.innerHTML = `<div class="err"><strong>Σφάλμα</strong>${m}</div>`;
+const sc       = yr => `${COMP}${yr}`;
+
+// Unified numeric getter: handles both "51.7%" strings and plain numbers
+function getNum(val, fallbacks = []) {
+  const sources = [val, ...fallbacks];
+  for (const v of sources) {
+    if (v == null) continue;
+    if (typeof v === 'number') return v;
+    if (typeof v === 'string') {
+      const clean = parseFloat(v.replace('%',''));
+      if (!isNaN(clean)) return clean;
+    }
+  }
+  return null;
+}
+
+function fmt(val, d=1, fallbacks=[]) {
+  const n = getNum(val, fallbacks);
+  return n == null ? '—' : n.toFixed(d);
+}
+
+// For percentages: if value already has %, return as-is; else format as float
+function fmtPct(val, fallbacks=[]) {
+  const sources = [val, ...fallbacks];
+  for (const v of sources) {
+    if (v == null) continue;
+    if (typeof v === 'string' && v.includes('%')) return v;
+    const n = parseFloat(v);
+    if (!isNaN(n)) return (n > 1 ? n.toFixed(1) : (n * 100).toFixed(1)) + '%';
+  }
+  return '—';
+}
+
+const ini = n => n ? n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase() : '?';
 
 function switchTab(name) {
-  document.querySelectorAll('.tab').forEach((t, i) =>
-    t.classList.toggle('active', ['standings','teams','players'][i] === name)
-  );
+  document.querySelectorAll('.tab').forEach((t,i) =>
+    t.classList.toggle('active', ['standings','teams','players'][i]===name));
   document.querySelectorAll('.panel').forEach(p =>
-    p.classList.toggle('active', p.id === 'panel-' + name)
-  );
+    p.classList.toggle('active', p.id==='panel-'+name));
 }
 
 // ── Load Season ───────────────────────────────────────────────────────────
 async function loadSeason() {
   const btn = document.getElementById('loadBtn');
   btn.disabled = true; btn.textContent = '...';
-  currentSeason = document.getElementById('seasonSel').value;
+  currentYear = parseInt(document.getElementById('seasonSel').value);
 
   document.getElementById('banner').style.display = '';
   document.getElementById('tabs').style.display   = '';
-  document.getElementById('bannerSeason').textContent = SEASON_LABELS[currentSeason] || currentSeason;
+  document.getElementById('bannerSeason').textContent = SEASON_LABELS[currentYear];
   document.getElementById('bannerSub').textContent    = 'Φόρτωση...';
 
-  setLoading(document.getElementById('standingsOut'));
+  setLoad(document.getElementById('standingsOut'));
   setEmpty(document.getElementById('teamsOut'),   'Επίλεξε ομάδα.');
   setEmpty(document.getElementById('playersOut'), 'Επίλεξε ομάδα.');
   switchTab('standings');
 
-  await Promise.allSettled([ loadStandings(), loadClubsAndTeamStats() ]);
+  ['teamSel','playerTeamSel'].forEach(id =>
+    document.getElementById(id).innerHTML = '<option value="">— Φόρτωση... —</option>'
+  );
+
+  await Promise.allSettled([ loadStandings(), loadTeamStatsBulk() ]);
 
   btn.disabled = false; btn.textContent = 'Load';
 }
 
 // ── Standings ─────────────────────────────────────────────────────────────
+// Endpoint: /v3/competitions/E/seasons/E2025/rounds/{round}/basicstandings
 async function loadStandings() {
   const el = document.getElementById('standingsOut');
-  setLoading(el);
+  setLoad(el);
   try {
-    // Βρίσκουμε τον τελευταίο διαθέσιμο round (binary-ish search από 38 προς τα κάτω)
-    let data, round = 38;
+    const BASE  = `/v3/competitions/${COMP}/seasons/${sc(currentYear)}/rounds`;
+    const maxR  = MAX_ROUNDS[currentYear] || 38;
+    let data, round = maxR;
+
     while (round >= 1) {
       try {
-        data = await apiFetch(`${BASE_V3}/seasons/${currentSeason}/standings`, { roundNumber: round });
-        if (data?.teams?.length) break;
-      } catch(e) { /* try lower round */ }
+        const d = await apiFetch(`${BASE}/${round}/basicstandings`);
+        if (d?.teams?.length) { data = d; break; }
+      } catch(e) { /* 404 = not played, try lower */ }
       round--;
     }
 
     if (!data?.teams?.length) {
-      setEmpty(el, 'Δεν βρέθηκαν standings για αυτή τη σεζόν.');
-      return;
+      setEmpty(el, 'Δεν βρέθηκαν standings για αυτή τη σεζόν.'); return;
     }
 
-    const teams = data.teams;
-    document.getElementById('bannerSub').textContent =
-      `Regular Season · Αγωνιστική ${round} · ${teams.length} ομάδες`;
+    const teams   = data.teams;
+    const isF4    = currentYear === 2025;
+    const bannerP = isF4
+      ? `Regular Season · Round ${round} · <span class="f4-badge">🏆 F4 22-24 Μαΐου · Αθήνα</span>`
+      : `Regular Season · Αγωνιστική ${round} · ${teams.length} ομάδες`;
+
+    document.getElementById('bannerSub').innerHTML = bannerP;
     document.getElementById('bannerMeta').innerHTML = `
-      <div style="text-align:center">
-        <div class="meta-v">${teams.length}</div>
-        <div class="meta-l">Ομάδες</div>
-      </div>
-      <div style="text-align:center">
-        <div class="meta-v">${round}</div>
-        <div class="meta-l">Rounds</div>
-      </div>`;
+      <div style="text-align:center"><div class="meta-v">${teams.length}</div><div class="meta-l">Ομάδες</div></div>
+      <div style="text-align:center"><div class="meta-v">${round}</div><div class="meta-l">Rounds</div></div>`;
 
     el.innerHTML = `
       <div class="round-wrap">
         <span class="filter-label">Αγωνιστική</span>
         <select id="roundSel" onchange="changeRound(this.value)">
-          ${Array.from({length: round}, (_, i) => round - i)
-            .map(r => `<option value="${r}" ${r === round ? 'selected' : ''}>${r}</option>`).join('')}
+          ${Array.from({length:round},(_,i)=>round-i)
+            .map(r=>`<option value="${r}" ${r===round?'selected':''}>${r}</option>`).join('')}
         </select>
       </div>
       <div class="table-wrap">
         <table id="standingsTbl">
           <thead><tr>
-            <th>#</th>
-            <th>Ομάδα</th>
-            <th class="sortable" onclick="sortTable('standingsTbl',2,this)">Αγ</th>
-            <th class="sortable" onclick="sortTable('standingsTbl',3,this)">Ν</th>
-            <th class="sortable" onclick="sortTable('standingsTbl',4,this)">Η</th>
+            <th>#</th><th>Ομάδα</th>
+            <th class="sortable" onclick="sortTbl('standingsTbl',2,this)">Αγ</th>
+            <th class="sortable" onclick="sortTbl('standingsTbl',3,this)">Ν</th>
+            <th class="sortable" onclick="sortTbl('standingsTbl',4,this)">Η</th>
             <th>Win%</th>
           </tr></thead>
-          <tbody>${buildStandingsRows(teams)}</tbody>
+          <tbody>${buildStandRows(teams)}</tbody>
         </table>
       </div>`;
   } catch(e) {
-    setError(el, `Αδύνατη φόρτωση standings: ${e.message}`);
+    setErr(el, `Αδύνατη φόρτωση standings: ${e.message}`);
   }
 }
 
 async function changeRound(round) {
   try {
-    const data = await apiFetch(
-      `${BASE_V3}/seasons/${currentSeason}/standings`, { roundNumber: round }
-    );
-    document.querySelector('#standingsTbl tbody').innerHTML =
-      buildStandingsRows(data.teams || []);
-  } catch(e) {
-    console.error(e);
-  }
+    const BASE = `/v3/competitions/${COMP}/seasons/${sc(currentYear)}/rounds`;
+    const data = await apiFetch(`${BASE}/${round}/basicstandings`);
+    document.querySelector('#standingsTbl tbody').innerHTML = buildStandRows(data.teams||[]);
+  } catch(e) { console.error(e); }
 }
 
-function buildStandingsRows(teams) {
-  return teams.map((t, i) => {
-    const rank   = t.position ?? i + 1;
+function buildStandRows(teams) {
+  return teams.map((t,i) => {
+    const rank   = t.position ?? i+1;
     const name   = t.club?.name || '—';
     const code   = t.club?.code || '—';
+    const img    = t.club?.images?.crest || '';
     const played = t.gamesPlayed ?? 0;
     const wins   = t.gamesWon   ?? 0;
     const losses = t.gamesLost  ?? 0;
-    const p      = played > 0 ? Math.round(wins / played * 100) : 0;
-    const cls    = rank <= 4 ? 'g1' : rank <= 8 ? 'g2' : '';
+    // winPercentage comes as "68.4%" string from API
+    const pctStr = t.winPercentage || '';
+    const pctNum = parseFloat(pctStr) || (played>0 ? Math.round(wins/played*100) : 0);
+    const cls    = rank<=4?'g1':rank<=8?'g2':'';
+    const logoHtml = img
+      ? `<img src="${img}" alt="${code}" loading="lazy" />`
+      : `<span class="tlogo-text">${code.slice(0,3)}</span>`;
     return `<tr>
       <td class="rank ${cls}">${rank}</td>
       <td><div class="tc">
-        <div class="tlogo">${code.slice(0,3)}</div>
+        <div class="tlogo">${logoHtml}</div>
         <div><div class="tname">${name}</div><div class="tcode">${code}</div></div>
       </div></td>
       <td class="num" data-n="${played}">${played}</td>
       <td class="num w" data-n="${wins}">${wins}</td>
       <td class="num l" data-n="${losses}">${losses}</td>
       <td><div class="bar">
-        <div class="bar-bg"><div class="bar-fill" style="width:${p}%"></div></div>
-        <div class="bar-pct">${p}%</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:${pctNum}%"></div></div>
+        <div class="bar-pct">${pctStr || pctNum+'%'}</div>
       </div></td>
     </tr>`;
   }).join('');
 }
 
-// ── Clubs + Team Stats ────────────────────────────────────────────────────
-async function loadClubsAndTeamStats() {
+// ── Team Stats Bulk ────────────────────────────────────────────────────────
+// Response fields (E2025): pointsScored, twoPointersMade, twoPointersAttempted,
+// twoPointersPercentage (string), threePointersMade, threePointersAttempted,
+// threePointersPercentage (string), freeThrowsMade, freeThrowsAttempted,
+// freeThrowsPercentage (string), offensiveRebounds, defensiveRebounds,
+// totalRebounds, assists, steals, turnovers, blocksAgainst, blocksFavour,
+// foulsCommited, foulsReceived, valuation
+async function loadTeamStatsBulk() {
   try {
-    const [clubData, tsData] = await Promise.all([
-      apiFetch(`${BASE_V3}/seasons/${currentSeason}/clubs`),
-      apiFetch(`${BASE_V3}/statistics/teams/traditional`, {
-        SeasonMode: 'Single', SeasonCode: currentSeason,
-        statisticMode: 'PerGame', limit: 400
-      })
-    ]);
+    const data = await apiFetch(`/v3/competitions/${COMP}/statistics/teams/traditional`, {
+      SeasonMode: 'Single', SeasonCode: sc(currentYear),
+      statisticMode: 'PerGame', limit: 400
+    });
 
-    allClubs     = (clubData.clubs || []).map(c => ({ code: c.code, name: c.name }));
-    allTeamStats = tsData.teams || [];
+    allTeamStats = data.teams || [];
+    allClubs = allTeamStats
+      .map(t => ({ code: t.team?.code, name: t.team?.name, img: t.team?.imageUrl }))
+      .filter(c => c.code)
+      .sort((a,b) => a.name.localeCompare(b.name));
 
-    const opts = [...allClubs]
-      .sort((a, b) => a.name.localeCompare(b.name))
-      .map(c => `<option value="${c.code}">${c.name}</option>`).join('');
+    const opts = allClubs.map(c =>
+      `<option value="${c.code}">${c.name}</option>`
+    ).join('');
 
-    ['teamSel', 'playerTeamSel'].forEach(id => {
+    ['teamSel','playerTeamSel'].forEach(id => {
       document.getElementById(id).innerHTML =
         '<option value="">— Επίλεξε ομάδα —</option>' + opts;
     });
 
   } catch(e) {
-    console.warn('Club/TeamStats load failed:', e.message);
-    // Hardcoded fallback
-    const fallback = [
-      ['PAO','Panathinaikos AKTOR'],['OLY','Olympiacos Piraeus'],
-      ['MAD','Real Madrid'],['BAR','FC Barcelona'],
-      ['ULK','Fenerbahce Beko'],['MCO','AS Monaco'],
-      ['MIL','EA7 Emporio Armani Milano'],['ASV','Virtus Segafredo Bologna'],
-      ['BAS','Saski Baskonia'],['ZAL','Zalgiris Kaunas'],
-      ['PAR','Partizan Mozzart Bet'],['RED','Crvena zvezda'],
-      ['IST','Anadolu Efes'],['BER','Alba Berlin'],
-      ['PRS','Paris Basketball'],['VIL','Villeurbanne'],
-    ];
-    allClubs = fallback.map(([code, name]) => ({ code, name }));
-    const opts = fallback.map(([c, n]) => `<option value="${c}">${n}</option>`).join('');
-    ['teamSel', 'playerTeamSel'].forEach(id => {
-      document.getElementById(id).innerHTML =
-        '<option value="">— Επίλεξε ομάδα —</option>' + opts;
-    });
+    console.warn('Team stats bulk failed:', e.message);
+    setFallbackClubs();
   }
 }
 
-// ── Team Stats ─────────────────────────────────────────────────────────────
+function setFallbackClubs() {
+  const fallback = [
+    ['OLY','Olympiacos Piraeus'],['MAD','Real Madrid'],
+    ['ULK','Fenerbahce Beko'],['VBC','Valencia Basket'],
+    ['BAR','FC Barcelona'],['PAO','Panathinaikos AKTOR'],
+    ['MCO','AS Monaco'],['MIL','EA7 Emporio Armani Milano'],
+    ['ASV','LDLC ASVEL Villeurbanne'],['ASB','Virtus Segafredo Bologna'],
+    ['BAS','Kosner Baskonia'],['ZAL','Zalgiris Kaunas'],
+    ['PAR','Partizan Mozzart Bet'],['RED','Crvena Zvezda'],
+    ['IST','Anadolu Efes'],['BAY','FC Bayern Munich'],
+    ['PRS','Paris Basketball'],['HAP','Hapoel IBI Tel Aviv'],
+    ['MAC','Maccabi Rapyd Tel Aviv'],['DUB','Dubai Basketball'],
+  ];
+  allClubs = fallback.map(([code,name]) => ({code,name}));
+  const opts = fallback.map(([c,n]) => `<option value="${c}">${n}</option>`).join('');
+  ['teamSel','playerTeamSel'].forEach(id => {
+    document.getElementById(id).innerHTML =
+      '<option value="">— Επίλεξε ομάδα —</option>' + opts;
+  });
+}
+
+// ── Team Stats (single team) ───────────────────────────────────────────────
 async function loadTeamStats() {
   const code = document.getElementById('teamSel').value;
   const el   = document.getElementById('teamsOut');
-  if (!code) { setEmpty(el, 'Επίλεξε ομάδα.'); return; }
-  setLoading(el);
+  if (!code) { setEmpty(el,'Επίλεξε ομάδα.'); return; }
+  setLoad(el);
 
   try {
-    // Πρώτα ψάξε στο ήδη φορτωμένο allTeamStats
     let s = allTeamStats.find(t => t.team?.code === code);
 
     if (!s) {
-      const data = await apiFetch(`${BASE_V3}/statistics/teams/traditional`, {
-        SeasonMode: 'Single', SeasonCode: currentSeason,
-        statisticMode: 'PerGame', TeamCode: code, limit: 50
+      const data = await apiFetch(`/v3/competitions/${COMP}/statistics/teams/traditional`, {
+        SeasonMode: 'Single', SeasonCode: sc(currentYear),
+        statisticMode: 'PerGame', limit: 400
       });
-      s = (data.teams || []).find(t => t.team?.code === code) || data.teams?.[0];
+      allTeamStats = data.teams || [];
+      s = allTeamStats.find(t => t.team?.code === code);
     }
 
-    if (!s) { setEmpty(el, 'Δεν βρέθηκαν stats για αυτή την ομάδα.'); return; }
+    if (!s) { setEmpty(el,'Δεν βρέθηκαν stats για αυτή την ομάδα.'); return; }
 
-    const teamName = s.team?.name || allClubs.find(c => c.code === code)?.name || code;
-    const label    = SEASON_LABELS[currentSeason] || currentSeason;
+    const teamName = s.team?.name || code;
+    const label    = SEASON_LABELS[currentYear];
+    const teamImg  = s.team?.imageUrl || allClubs.find(c=>c.code===code)?.img;
+
+    // Unified field access — handles both old (fieldGoalsMade2) and new (twoPointersMade) naming
+    const pts  = fmt(s.pointsScored ?? s.score);
+    const ptsa = fmt(s.pointsAgainst);
+    const reb  = fmt(s.totalRebounds);
+    const oreb = fmt(s.offensiveRebounds);
+    const dreb = fmt(s.defensiveRebounds);
+    const ast  = fmt(s.assists ?? s.assistances);
+    const stl  = fmt(s.steals);
+    const blk  = fmt(s.blocksFavour);
+    const blka = fmt(s.blocksAgainst);
+    const tov  = fmt(s.turnovers);
+    const pir  = fmt(s.valuation, 0);
+
+    // FG2
+    const fg2m   = fmt(s.twoPointersMade    ?? s.fieldGoalsMade2,    0);
+    const fg2a   = fmt(s.twoPointersAttempted ?? s.fieldGoalsAttempted2, 0);
+    const fg2pct = fmtPct(s.twoPointersPercentage ?? s.fieldGoals2Percent ?? s.fieldGoalsPercent2);
+    // FG3
+    const fg3m   = fmt(s.threePointersMade    ?? s.fieldGoalsMade3,    0);
+    const fg3a   = fmt(s.threePointersAttempted ?? s.fieldGoalsAttempted3, 0);
+    const fg3pct = fmtPct(s.threePointersPercentage ?? s.fieldGoals3Percent ?? s.threePointPercent);
+    // FT
+    const ftm    = fmt(s.freeThrowsMade,    0);
+    const fta    = fmt(s.freeThrowsAttempted, 0);
+    const ftpct  = fmtPct(s.freeThrowsPercentage ?? s.freeThrowsPercent);
 
     el.innerHTML = `
-      <div class="sec">${teamName} · ${label} · Per Game</div>
-      <div class="cards">
-        ${card('Πόντοι',      fmt(s.score ?? s.pointsScored),  `Αντ: ${fmt(s.pointsAgainst)}`)}
-        ${card('Ριμπ. Συν.', fmt(s.totalRebounds),             `Off: ${fmt(s.offensiveRebounds)} · Def: ${fmt(s.defensiveRebounds)}`)}
-        ${card('Ασίστ',      fmt(s.assistances ?? s.assists))}
-        ${card('Κλεψίματα',  fmt(s.steals))}
-        ${card('Κοψίματα',   fmt(s.blocksFavour ?? s.blocks))}
-        ${card('Λάθη',       fmt(s.turnovers))}
-        ${card('FG2%',       asPct(s.fieldGoals2Percent ?? s.fieldGoalsPercent2), `${fmt(s.fieldGoalsMade2,0)}/${fmt(s.fieldGoalsAttempted2,0)}`)}
-        ${card('3P%',        asPct(s.fieldGoals3Percent ?? s.threePointPercent),  `${fmt(s.fieldGoalsMade3,0)}/${fmt(s.fieldGoalsAttempted3,0)}`)}
-        ${card('FT%',        asPct(s.freeThrowsPercent),                          `${fmt(s.freeThrowsMade,0)}/${fmt(s.freeThrowsAttempted,0)}`)}
-        ${card('PIR',        fmt(s.valuation ?? s.pir, 0))}
+      <div class="sec" style="align-items:center">
+        ${teamImg ? `<img src="${teamImg}" style="width:24px;height:24px;object-fit:contain;border-radius:50%;margin-right:4px" />` : ''}
+        ${teamName} · ${label} · Per Game
       </div>
-
+      <div class="cards">
+        ${card('Πόντοι',      pts,  `Αντ: ${ptsa}`)}
+        ${card('Ριμπ. Συν.', reb,  `Off: ${oreb} · Def: ${dreb}`)}
+        ${card('Ασίστ',      ast)}
+        ${card('Κλεψίματα',  stl)}
+        ${card('Κοψίματα',   blk,  `Κατά: ${blka}`)}
+        ${card('Λάθη',       tov)}
+        ${card('FG2%',       fg2pct, `${fg2m}/${fg2a}`)}
+        ${card('3P%',        fg3pct, `${fg3m}/${fg3a}`)}
+        ${card('FT%',        ftpct,  `${ftm}/${fta}`)}
+        ${card('PIR',        pir)}
+      </div>
       <div class="sec">Πλήρης Λίστα Στατιστικών</div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr>
-            <th>Κατηγορία</th>
-            <th style="text-align:right">Τιμή</th>
-          </tr></thead>
-          <tbody>${buildFullRows(s)}</tbody>
-        </table>
-      </div>`;
-  } catch(e) {
-    setError(el, e.message);
-  }
+      <div class="table-wrap"><table>
+        <thead><tr><th>Κατηγορία</th><th style="text-align:right">Τιμή</th></tr></thead>
+        <tbody>${fullRows(s, {pts,ptsa,reb,oreb,dreb,ast,stl,blk,blka,tov,pir,fg2m,fg2a,fg2pct,fg3m,fg3a,fg3pct,ftm,fta,ftpct})}</tbody>
+      </table></div>`;
+  } catch(e) { setErr(el, e.message); }
 }
 
-function card(label, value, sub = '') {
+function card(label, value, sub='') {
   return `<div class="card">
     <div class="card-label">${label}</div>
-    <div class="card-value">${value ?? '—'}</div>
-    ${sub ? `<div class="card-sub">${sub}</div>` : ''}
+    <div class="card-value">${value??'—'}</div>
+    ${sub?`<div class="card-sub">${sub}</div>`:''}
   </div>`;
 }
 
-function buildFullRows(s) {
-  const rows = [
-    ['Αγώνες',            s.gamesPlayed],
-    ['Πόντοι (avg)',      fmt(s.score ?? s.pointsScored)],
-    ['Πόντοι αντιπάλου', fmt(s.pointsAgainst)],
-    ['Ριμπ. Επιθετικά',  fmt(s.offensiveRebounds)],
-    ['Ριμπ. Αμυντικά',   fmt(s.defensiveRebounds)],
-    ['Ριμπ. Συνολικά',   fmt(s.totalRebounds)],
-    ['Ασίστ',            fmt(s.assistances ?? s.assists)],
-    ['Κλεψίματα',        fmt(s.steals)],
-    ['Κοψίματα (υπέρ)',  fmt(s.blocksFavour ?? s.blocks)],
-    ['Κοψίματα (κατά)',  fmt(s.blocksAgainst)],
-    ['Λάθη',             fmt(s.turnovers)],
-    ['Φάουλ κερδ.',      fmt(s.foulsReceived ?? s.foulsDrawn)],
-    ['Φάουλ διαπρ.',     fmt(s.foulsCommited ?? s.personalFouls)],
-    ['Σούτ 2π Ε/Α',      `${fmt(s.fieldGoalsMade2,0)} / ${fmt(s.fieldGoalsAttempted2,0)}`],
-    ['Σούτ 2π %',        asPct(s.fieldGoals2Percent ?? s.fieldGoalsPercent2)],
-    ['Τρίποντα Ε/Α',     `${fmt(s.fieldGoalsMade3,0)} / ${fmt(s.fieldGoalsAttempted3,0)}`],
-    ['Τρίποντα %',       asPct(s.fieldGoals3Percent ?? s.threePointPercent)],
-    ['Ελεύθερες Ε/Α',    `${fmt(s.freeThrowsMade,0)} / ${fmt(s.freeThrowsAttempted,0)}`],
-    ['Ελεύθερες %',      asPct(s.freeThrowsPercent)],
-    ['PIR',              fmt(s.valuation ?? s.pir, 0)],
-  ];
-  return rows.map(([l, v]) =>
-    `<tr><td style="color:var(--muted2)">${l}</td><td class="num">${v ?? '—'}</td></tr>`
+function fullRows(s, f) {
+  return [
+    ['Αγώνες',           s.gamesPlayed],
+    ['Πόντοι avg',       f.pts],
+    ['Πόντοι αντ. avg',  f.ptsa],
+    ['Ριμπ. Επιθετικά',  f.oreb],
+    ['Ριμπ. Αμυντικά',   f.dreb],
+    ['Ριμπ. Σύνολο',     f.reb],
+    ['Ασίστ',            f.ast],
+    ['Κλεψίματα',        f.stl],
+    ['Κοψίματα (υπέρ)',  f.blk],
+    ['Κοψίματα (κατά)',  f.blka],
+    ['Λάθη',             f.tov],
+    ['Φάουλ κερδ.',      fmt(s.foulsReceived)],
+    ['Φάουλ διαπρ.',     fmt(s.foulsCommited)],
+    ['Σούτ 2π Ε/Α',      `${f.fg2m} / ${f.fg2a}`],
+    ['Σούτ 2π %',        f.fg2pct],
+    ['Τρίποντα Ε/Α',     `${f.fg3m} / ${f.fg3a}`],
+    ['Τρίποντα %',       f.fg3pct],
+    ['Ελεύθερες Ε/Α',    `${f.ftm} / ${f.fta}`],
+    ['Ελεύθερες %',      f.ftpct],
+    ['PIR',              f.pir],
+  ].map(([l,v]) =>
+    `<tr><td style="color:var(--muted2)">${l}</td><td class="num">${v??'—'}</td></tr>`
   ).join('');
 }
 
 // ── Player Stats ───────────────────────────────────────────────────────────
+// E2025 player fields: score, twoPointersMade, threePointersMade,
+// freeThrowsMade, totalRebounds, assists, steals, turnovers,
+// blocksFavour, valuation, timePlayed, gamesPlayed
 async function loadPlayerStats() {
   const code = document.getElementById('playerTeamSel').value;
   const mode = document.getElementById('statModeSel').value;
   const el   = document.getElementById('playersOut');
-  if (!code) { setEmpty(el, 'Επίλεξε ομάδα.'); return; }
-  setLoading(el);
+  if (!code) { setEmpty(el,'Επίλεξε ομάδα.'); return; }
+  setLoad(el);
 
   try {
-    const data = await apiFetch(`${BASE_V3}/statistics/players/traditional`, {
-      SeasonMode: 'Single', SeasonCode: currentSeason,
+    const data = await apiFetch(`/v3/competitions/${COMP}/statistics/players/traditional`, {
+      SeasonMode: 'Single', SeasonCode: sc(currentYear),
       statisticMode: mode, TeamCode: code, limit: 30
     });
 
     const players = data.players || [];
-    if (!players.length) { setEmpty(el, 'Δεν βρέθηκαν παίκτες.'); return; }
+    if (!players.length) { setEmpty(el,'Δεν βρέθηκαν παίκτες.'); return; }
 
-    players.sort((a, b) => (b.valuation ?? 0) - (a.valuation ?? 0));
+    players.sort((a,b) => (getNum(b.valuation)??0) - (getNum(a.valuation)??0));
 
-    const teamName  = allClubs.find(c => c.code === code)?.name || code;
-    const modeLabel = { PerGame: 'Per Game', Accumulated: 'Σύνολο', PerMinute: 'Per Min' }[mode] || mode;
+    const teamName  = allClubs.find(c=>c.code===code)?.name || code;
+    const modeLabel = {PerGame:'Per Game',Accumulated:'Σύνολο',PerMinute:'Per Min'}[mode]||mode;
 
     el.innerHTML = `
       <div class="sec">${teamName} · Παίκτες · ${modeLabel}</div>
       <div class="table-wrap">
-        <table id="playersTbl">
+        <table id="plTbl">
           <thead><tr>
             <th>Παίκτης</th>
-            <th class="sortable" onclick="sortTable('playersTbl',1,this)">Αγ</th>
-            <th class="sortable" onclick="sortTable('playersTbl',2,this)">Λεπτά</th>
-            <th class="sortable" onclick="sortTable('playersTbl',3,this)">Πόντοι</th>
-            <th class="sortable" onclick="sortTable('playersTbl',4,this)">Ριμπ</th>
-            <th class="sortable" onclick="sortTable('playersTbl',5,this)">Ασίστ</th>
-            <th class="sortable" onclick="sortTable('playersTbl',6,this)">Κλ</th>
-            <th class="sortable" onclick="sortTable('playersTbl',7,this)">Κοψ</th>
-            <th class="sortable" onclick="sortTable('playersTbl',8,this)">Λάθη</th>
-            <th class="sortable desc" onclick="sortTable('playersTbl',9,this)">PIR</th>
+            <th class="sortable" onclick="sortTbl('plTbl',1,this)">Αγ</th>
+            <th class="sortable" onclick="sortTbl('plTbl',2,this)">Λεπτά</th>
+            <th class="sortable" onclick="sortTbl('plTbl',3,this)">Πόντοι</th>
+            <th class="sortable" onclick="sortTbl('plTbl',4,this)">Ριμπ</th>
+            <th class="sortable" onclick="sortTbl('plTbl',5,this)">Ασίστ</th>
+            <th class="sortable" onclick="sortTbl('plTbl',6,this)">Κλ</th>
+            <th class="sortable" onclick="sortTbl('plTbl',7,this)">Κοψ</th>
+            <th class="sortable" onclick="sortTbl('plTbl',8,this)">Λάθη</th>
+            <th class="sortable desc" onclick="sortTbl('plTbl',9,this)">PIR</th>
           </tr></thead>
-          <tbody>${players.map(buildPlayerRow).join('')}</tbody>
+          <tbody>${players.map(playerRow).join('')}</tbody>
         </table>
       </div>`;
-  } catch(e) {
-    setError(el, e.message);
-  }
+  } catch(e) { setErr(el, e.message); }
 }
 
-function buildPlayerRow(p) {
-  const name = p.player?.name || p.playerName || '—';
+function playerRow(p) {
+  const name = p.player?.name || '—';
   const gp   = p.gamesPlayed ?? '—';
   const mins = p.timePlayed  ?? '—';
-  const pts  = fmt(p.score   ?? p.points);
+  // New naming: score, assists / old: pointsScored, assistances
+  const pts  = fmt(p.score   ?? p.pointsScored ?? p.points);
   const reb  = fmt(p.totalRebounds ?? p.rebounds);
-  const ast  = fmt(p.assistances   ?? p.assists);
+  const ast  = fmt(p.assists ?? p.assistances);
   const stl  = fmt(p.steals);
-  const blk  = fmt(p.blocksFavour  ?? p.blocks);
+  const blk  = fmt(p.blocksFavour ?? p.blocks);
   const tov  = fmt(p.turnovers);
-  const pir  = fmt(p.valuation     ?? p.pir, 0);
-
+  const pir  = fmt(p.valuation ?? p.pir, 0);
+  const pirN = getNum(p.valuation ?? p.pir) ?? 0;
+  const minsN = parseFloat(mins) || 0;
   return `<tr>
     <td><div class="tc">
       <div class="pavatar">${ini(name)}</div>
       <div class="tname" style="font-size:14px">${name}</div>
     </div></td>
-    <td class="num" data-n="${p.gamesPlayed ?? 0}">${gp}</td>
-    <td class="num" data-n="${parseFloat(mins)||0}" style="color:var(--muted2)">${mins}</td>
+    <td class="num" data-n="${p.gamesPlayed??0}">${gp}</td>
+    <td class="num" data-n="${minsN}" style="color:var(--muted2)">${mins}</td>
     <td class="num" data-n="${parseFloat(pts)||0}">${pts}</td>
     <td class="num" data-n="${parseFloat(reb)||0}">${reb}</td>
     <td class="num" data-n="${parseFloat(ast)||0}">${ast}</td>
     <td class="num" data-n="${parseFloat(stl)||0}">${stl}</td>
     <td class="num" data-n="${parseFloat(blk)||0}">${blk}</td>
     <td class="num" data-n="${parseFloat(tov)||0}" style="color:var(--muted2)">${tov}</td>
-    <td data-n="${parseFloat(pir)||0}"><span class="pir">${pir}</span></td>
+    <td data-n="${pirN}"><span class="pir">${pir}</span></td>
   </tr>`;
 }
 
 // ── Sort ───────────────────────────────────────────────────────────────────
-function sortTable(tblId, colIdx, thEl) {
+function sortTbl(tblId, colIdx, thEl) {
   const tbl   = document.getElementById(tblId);
   const tbody = tbl.querySelector('tbody');
   const rows  = Array.from(tbody.querySelectorAll('tr'));
   const ths   = tbl.querySelectorAll('th.sortable');
   const wasDesc = thEl.classList.contains('desc');
   ths.forEach(t => t.classList.remove('asc','desc'));
-  thEl.classList.add(wasDesc ? 'asc' : 'desc');
+  thEl.classList.add(wasDesc?'asc':'desc');
   const desc = !wasDesc;
-  rows.sort((a, b) => {
-    const av = parseFloat(a.querySelectorAll('td')[colIdx]?.dataset?.n ?? 0) || 0;
-    const bv = parseFloat(b.querySelectorAll('td')[colIdx]?.dataset?.n ?? 0) || 0;
-    return desc ? bv - av : av - bv;
+  rows.sort((a,b) => {
+    const av = parseFloat(a.querySelectorAll('td')[colIdx]?.dataset?.n??0)||0;
+    const bv = parseFloat(b.querySelectorAll('td')[colIdx]?.dataset?.n??0)||0;
+    return desc ? bv-av : av-bv;
   });
   rows.forEach(r => tbody.appendChild(r));
 }
 
-// ── Init ───────────────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => loadSeason());
 </script>
 </body>

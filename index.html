@@ -658,30 +658,28 @@ function getTeamStats(code) {
 // Uses /v3/competitions/E/seasons/E2025/rounds/{r}/basicstandings
 // to extract W/L per round — we scan the last N rounds
 async function fetchTeamRecentForm(code, rounds=10) {
-  const results = []; // [{round, won, pointsFor, pointsAgainst}]
-  const BASE = `/v3/competitions/${COMP}/seasons/${sc(currentYear)}/rounds`;
+  const results = [];
+  const roundsToCheck = [];
+  for(let r=lastRound; r>Math.max(lastRound-rounds,0); r--) roundsToCheck.push(r);
 
-  // Fetch last `rounds` rounds in parallel
-  const fetchPromises = [];
-  for(let r = lastRound; r > Math.max(lastRound - rounds, 0); r--) {
-    fetchPromises.push(
-      apiFetch(`${BASE}/${r}/results`).then(data => {
-        // results endpoint: {games:[{homeTeam:{code},awayTeam:{code},homeScore,awayScore}]}
-        const games = data.games || data.results || [];
-        const game  = games.find(g => g.homeTeam?.club?.code===code || g.awayTeam?.club?.code===code
-                                    || g.homeClub?.code===code      || g.awayClub?.code===code);
-        if(!game) return null;
-        const isHome = (game.homeTeam?.club?.code||game.homeClub?.code)===code;
-        const myScore  = isHome ? (game.homeScore??game.homePoints??0) : (game.awayScore??game.awayPoints??0);
-        const oppScore = isHome ? (game.awayScore??game.awayPoints??0) : (game.homeScore??game.homePoints??0);
-        return { round:r, won:myScore>oppScore, pf:myScore, pa:oppScore, isHome };
-      }).catch(()=>null)
-    );
-  }
+  await Promise.all(roundsToCheck.map(async r=>{
+    try {
+      const data = await apiFetch(`/v2/competitions/${COMP}/seasons/${sc(currentYear)}/games`,{
+        roundNumber: r, limit: 20
+      });
+      const games = data.data || [];
+      const game  = games.find(g=>
+        g.local?.club?.code===code || g.road?.club?.code===code
+      );
+      if(!game) return;
+      const isHome  = game.local?.club?.code === code;
+      const myScore = isHome ? (game.local?.score||0) : (game.road?.score||0);
+      const oppScore= isHome ? (game.road?.score||0)  : (game.local?.score||0);
+      results.push({ round:r, won:myScore>oppScore, pf:myScore, pa:oppScore, isHome });
+    } catch(e){}
+  }));
 
-  const fetched = await Promise.all(fetchPromises);
-  fetched.forEach(f=>{ if(f) results.push(f); });
-  results.sort((a,b)=>b.round-a.round); // newest first
+  results.sort((a,b)=>b.round-a.round);
   return results;
 }
 
@@ -865,111 +863,106 @@ async function loadPlayerForm() {
   setLoad(el);
 
   try {
-    // Step 1: Get season averages for all players of the team
+    // Season averages
     const seasonData = await apiFetch(`/v3/competitions/${COMP}/statistics/players/traditional`,{
       SeasonMode:'Single', SeasonCode:sc(currentYear), statisticMode:'PerGame', limit:600
     });
-    const allPlayers = seasonData.players||[];
+    const allPlayers  = seasonData.players||[];
     const teamPlayers = allPlayers.filter(p=>(p.team?.code||'')===code);
-
     if(!teamPlayers.length){ setEmpty(el,`Δεν βρέθηκαν παίκτες για ${code}.`); return; }
 
-    // Step 2: Get last 5 rounds of game-by-game stats for this team's players
-    // Fetch game codes from last 5 rounds
-    const BASE = `/v3/competitions/${COMP}/seasons/${sc(currentYear)}/rounds`;
+    // Find last 5 gameCodes for this team via v2 games
     const recentRounds = [];
     for(let r=lastRound; r>Math.max(lastRound-5,0); r--) recentRounds.push(r);
 
-    // For each round, get results to find game code, then get player box score
-    const gameStatsArr = [];
+    const gameCodes = [];
     await Promise.all(recentRounds.map(async r=>{
       try {
-        const results = await apiFetch(`${BASE}/${r}/results`);
-        const games   = results.games||results.results||[];
-        const game    = games.find(g=>
-          g.homeTeam?.club?.code===code || g.awayTeam?.club?.code===code ||
-          g.homeClub?.code===code       || g.awayClub?.code===code
+        const data = await apiFetch(`/v2/competitions/${COMP}/seasons/${sc(currentYear)}/games`,{
+          roundNumber:r, limit:20
+        });
+        const game = (data.data||[]).find(g=>
+          g.local?.club?.code===code || g.road?.club?.code===code
         );
-        if(!game) return;
-        // gameCode from game object
-        const gameCode = game.gameCode || game.code || game.id;
-        if(!gameCode) return;
-
-        const stats = await apiFetch(`/v3/competitions/${COMP}/seasons/${sc(currentYear)}/games/${gameCode}/stats`);
-        const playerStats = stats.playerStats||stats.players||[];
-        const teamStats   = playerStats.filter(p=>
-          (p.team?.code||p.teamCode||'')===code
-        );
-        gameStatsArr.push({ round:r, players:teamStats });
+        if(game?.gameCode) gameCodes.push({ round:r, gameCode:game.gameCode });
       } catch(e){}
     }));
+    gameCodes.sort((a,b)=>b.round-a.round);
 
+    // Fetch box scores for each game
+    const gameStatsArr = [];
+    await Promise.all(gameCodes.map(async ({round, gameCode})=>{
+      try {
+        const stats = await apiFetch(`/v3/competitions/${COMP}/seasons/${sc(currentYear)}/games/${gameCode}/stats`);
+        // local or road depending on team
+        const side = stats.local?.players && (stats.local?.coach || stats.local?.players?.length)
+          ? (gameCodes && true ? null : null) : null;
+        // Determine which side is our team
+        const localPlayers = stats.local?.players || [];
+        const roadPlayers  = stats.road?.players  || [];
+        // Check first player's team — or check club code in stats object
+        const localCode = stats.local?.club?.code || (localPlayers[0]?.team?.code);
+        const isLocal   = localCode === code;
+        const players   = isLocal ? localPlayers : roadPlayers;
+        gameStatsArr.push({ round, gameCode, players });
+      } catch(e){}
+    }));
     gameStatsArr.sort((a,b)=>b.round-a.round);
 
-    // Step 3: For each player, compute last-N-games avg vs season avg
+    if(!gameStatsArr.length){ setEmpty(el,'Δεν βρέθηκαν πρόσφατα δεδομένα αγώνων.'); return; }
+
+    // Build player cards
     const teamName = allClubs.find(c=>c.code===code)?.name||code;
-    const cards    = teamPlayers
-      .filter(p=>p.gamesPlayed>=5) // skip players with very few games
+
+    const cards = teamPlayers
+      .filter(p=>p.gamesPlayed>=5)
       .map(p=>{
-        const playerCode = p.player?.code||p.playerCode;
+        const personCode = p.player?.code;
         const name       = p.player?.name||'—';
+        const seasonPts  = getNum(p.score??p.pointsScored)||0;
+        const seasonPir  = getNum(p.valuation)||0;
 
-        // Season avg
-        const seasonPts = getNum(p.score??p.pointsScored)||0;
-        const seasonReb = getNum(p.totalRebounds)||0;
-        const seasonAst = getNum(p.assists??p.assistances)||0;
-        const seasonPir = getNum(p.valuation)||0;
-
-        // Last N games
+        // Match player across game box scores by person code or name
         const recentGames = gameStatsArr.map(g=>{
-          return g.players.find(gp=>
-            gp.player?.code===playerCode || gp.playerCode===playerCode
-          );
+          return g.players.find(gp=>{
+            const pc = gp.player?.person?.code || gp.player?.code;
+            const nm = gp.player?.person?.name || gp.player?.name;
+            return pc===personCode || nm===name;
+          });
         }).filter(Boolean);
 
-        if(recentGames.length===0) return null; // no recent data
+        if(!recentGames.length) return null;
 
-        const avgOf = (arr, key) => {
-          const vals = arr.map(g=>getNum(g[key]||g.score)||0).filter(v=>v>0);
-          return vals.length ? vals.reduce((s,v)=>s+v,0)/vals.length : 0;
+        const avgOf = (arr, ...keys) => {
+          const vals = arr.map(g=>{ for(const k of keys){ const v=getNum(g[k]); if(v!=null) return v; } return 0; });
+          return vals.reduce((s,v)=>s+v,0)/vals.length;
         };
 
-        const recentPts = avgOf(recentGames, 'score');
-        const recentPir = avgOf(recentGames, 'valuation');
+        const recentPts = avgOf(recentGames,'score','points','pointsScored');
+        const recentPir = avgOf(recentGames,'valuation','pir');
 
-        // Streak detection: compare recent PIR vs season PIR
-        const pirDiff   = seasonPir>0 ? (recentPir - seasonPir) / seasonPir : 0;
-        const streak    = pirDiff > 0.15 ? 'hot' : pirDiff > 0.05 ? 'warm' : pirDiff < -0.15 ? 'cold' : 'neutral';
-        const streakLabel = {
-          hot:  '🔥 Hot Streak',
-          warm: '📈 Above Average',
-          cold: '❄️ Cold Streak',
-          neutral: '➡️ On Form',
-        }[streak];
+        const pirDiff    = seasonPir>0 ? (recentPir-seasonPir)/seasonPir : 0;
+        const streak     = pirDiff>0.15?'hot':pirDiff>0.05?'warm':pirDiff<-0.15?'cold':'neutral';
+        const streakLabel= {hot:'🔥 Hot Streak',warm:'📈 Above Average',cold:'❄️ Cold Streak',neutral:'➡️ On Form'}[streak];
 
-        // Per-stat trend dots (above/below avg per game)
         const trendDots = recentGames.slice(0,5).map(g=>{
-          const gPir = getNum(g.valuation)||0;
-          const cls  = gPir > seasonPir*1.05 ? 'above' : gPir < seasonPir*0.95 ? 'below' : 'near';
-          return `<div class="pfc-dot ${cls}" title="Round ${g.round||'?'}: PIR ${gPir.toFixed(0)}"></div>`;
+          const gPir = getNum(g.valuation??g.pir)||0;
+          const cls  = gPir>seasonPir*1.05?'above':gPir<seasonPir*0.95?'below':'near';
+          return `<div class="pfc-dot ${cls}"></div>`;
         }).join('');
 
-        // Expected next game
         const expPts = ((seasonPts*0.5)+(recentPts*0.5)).toFixed(1);
-        const ptsCls = recentPts > seasonPts*1.1 ? 'up' : recentPts < seasonPts*0.9 ? 'down' : 'same';
+        const ptsCls = recentPts>seasonPts*1.1?'up':recentPts<seasonPts*0.9?'down':'same';
 
-        return { name, streak, streakLabel, seasonPts, recentPts, seasonPir, recentPir, pirDiff, trendDots, expPts, ptsCls, seasonReb, seasonAst };
+        return { name, streak, streakLabel, seasonPts, recentPts, seasonPir, recentPir, pirDiff, trendDots, expPts, ptsCls };
       })
       .filter(Boolean)
-      .sort((a,b)=>Math.abs(b.pirDiff)-Math.abs(a.pirDiff)); // most notable first
+      .sort((a,b)=>Math.abs(b.pirDiff)-Math.abs(a.pirDiff));
 
-    if(!cards.length){
-      setEmpty(el,'Δεν βρέθηκαν πρόσφατα δεδομένα αγώνων για αυτή την ομάδα.');
-      return;
-    }
+    if(!cards.length){ setEmpty(el,'Δεν βρέθηκαν αρκετά δεδομένα για ανάλυση φόρμας.'); return; }
 
     el.innerHTML=`
-      <div class="sec">${teamName} · Player Form · Τελευταίοι ${Math.min(gameStatsArr.length,5)} αγώνες vs Season Avg</div>
+      <div class="sec">${teamName} · Player Form · Τελευταίοι ${gameStatsArr.length} αγώνες vs Season Avg</div>
       <div class="player-form-grid">
         ${cards.map(c=>`
           <div class="player-form-card ${c.streak}">
@@ -981,36 +974,24 @@ async function loadPlayerForm() {
               </div>
             </div>
             <div class="pfc-stats">
-              <div class="pfc-stat">
-                <div class="pfc-stat-val ${c.ptsCls}">${c.recentPts.toFixed(1)}</div>
-                <div class="pfc-stat-label">Πόντοι</div>
-              </div>
-              <div class="pfc-stat">
-                <div class="pfc-stat-val">${c.seasonPts.toFixed(1)}</div>
-                <div class="pfc-stat-label">Avg σεζόν</div>
-              </div>
-              <div class="pfc-stat">
-                <div class="pfc-stat-val">${c.recentPir.toFixed(0)}</div>
-                <div class="pfc-stat-label">PIR τώρα</div>
-              </div>
-              <div class="pfc-stat">
-                <div class="pfc-stat-val">${c.seasonPir.toFixed(0)}</div>
-                <div class="pfc-stat-label">PIR avg</div>
-              </div>
+              <div class="pfc-stat"><div class="pfc-stat-val ${c.ptsCls}">${c.recentPts.toFixed(1)}</div><div class="pfc-stat-label">Πόντοι</div></div>
+              <div class="pfc-stat"><div class="pfc-stat-val">${c.seasonPts.toFixed(1)}</div><div class="pfc-stat-label">Avg σεζόν</div></div>
+              <div class="pfc-stat"><div class="pfc-stat-val">${c.recentPir.toFixed(0)}</div><div class="pfc-stat-label">PIR τώρα</div></div>
+              <div class="pfc-stat"><div class="pfc-stat-val">${c.seasonPir.toFixed(0)}</div><div class="pfc-stat-label">PIR avg</div></div>
             </div>
             <div class="pfc-trend">
               <span class="pfc-trend-label">Form:</span>
               <div class="pfc-trend-dots">${c.trendDots}</div>
             </div>
             <div class="pfc-exp">
-              Εκτίμηση επόμενου ματς: <strong>${c.expPts} πόντοι</strong>
+              Εκτίμηση επόμενου: <strong>${c.expPts} πόντοι</strong>
               (${c.pirDiff>=0?'+':''}${(c.pirDiff*100).toFixed(0)}% vs season PIR)
             </div>
           </div>`).join('')}
       </div>
-      <div class="disclaimer">⚠️ Βασισμένο σε rolling average τελευταίων αγώνων. 🟢 Πάνω από avg · 🔴 Κάτω από avg · ⚫ Κοντά στο avg</div>`;
+      <div class="disclaimer">⚠️ Rolling average τελευταίων αγώνων. 🟢 Πάνω από avg · 🔴 Κάτω · ⚫ Κοντά</div>`;
 
-  } catch(e){ setErr(el, e.message); }
+  } catch(e){ setErr(el,e.message); }
 }
 
 // ── Sort ───────────────────────────────────────────────────────────────────

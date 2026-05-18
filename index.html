@@ -20,10 +20,11 @@
   }
   body { background:var(--bg); color:var(--text); font-family:var(--fb); font-size:15px; line-height:1.5; min-height:100vh; overflow-x:hidden; }
 
-  header { position:sticky; top:0; z-index:100; background:rgba(10,12,16,0.94); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); padding:0 28px; height:60px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+  /* HEADER */
+  header { position:sticky; top:0; z-index:100; background:rgba(26,26,31,0.94); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); padding:0 28px; height:60px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
   .logo { display:flex; align-items:center; gap:10px; }
   .logo-icon { width:34px; height:34px; background:var(--accent); border-radius:4px; display:flex; align-items:center; justify-content:center; }
-  .logo-icon svg { width:19px; height:19px; fill:#0a0c10; }
+  .logo-icon svg { width:19px; height:19px; fill:#1a1a1f; }
   .logo-text { font-family:var(--fh); font-size:21px; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; }
   .logo-text span { color:var(--accent); }
   .controls { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
@@ -31,14 +32,15 @@
   select:hover, select:focus { border-color:var(--accent); }
   select option { background:var(--bg2); }
   .btn { font-family:var(--fh); font-size:14px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:7px 18px; border-radius:var(--r); border:none; cursor:pointer; transition:all var(--t); }
-  .btn-primary { background:var(--accent); color:#0a0c10; }
+  .btn-primary { background:var(--accent); color:#1a1a1f; }
   .btn-primary:hover { background:var(--accent2); transform:translateY(-1px); }
   .btn-primary:disabled { opacity:0.45; cursor:not-allowed; transform:none; }
 
   main { max-width:1380px; margin:0 auto; padding:28px 20px 64px; }
 
+  /* BANNER */
   .banner { display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; padding:18px 24px; background:var(--bg2); border:1px solid var(--border); border-radius:10px; position:relative; overflow:hidden; }
-  .banner::before { content:''; position:absolute; right:-40px; top:-40px; width:180px; height:180px; background:radial-gradient(circle,rgba(232,200,74,0.07) 0%,transparent 70%); pointer-events:none; }
+  .banner::before { content:''; position:absolute; right:-40px; top:-40px; width:180px; height:180px; background:radial-gradient(circle,rgba(244,124,32,0.07) 0%,transparent 70%); pointer-events:none; }
   .banner h1 { font-family:var(--fh); font-size:30px; font-weight:900; text-transform:uppercase; letter-spacing:0.04em; line-height:1; }
   .banner h1 span { color:var(--accent); }
   .banner p { color:var(--muted2); font-size:12px; margin-top:3px; }
@@ -46,18 +48,22 @@
   .meta-v { font-family:var(--fh); font-size:28px; font-weight:800; color:var(--accent); line-height:1; }
   .meta-l { font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-top:2px; }
 
-  .tabs { display:flex; gap:2px; margin-bottom:24px; background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:4px; width:fit-content; }
+  /* TABS */
+  .tabs { display:flex; gap:2px; margin-bottom:24px; background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:4px; width:fit-content; flex-wrap:wrap; }
   .tab { font-family:var(--fh); font-size:13px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:7px 18px; border-radius:5px; border:none; background:transparent; color:var(--muted2); cursor:pointer; transition:all var(--t); }
   .tab:hover { color:var(--text); }
-  .tab.active { background:var(--accent); color:#0a0c10; }
+  .tab.active { background:var(--accent); color:#1a1a1f; }
 
+  /* PANELS */
   .panel { display:none; animation:fadeIn 0.22s ease; }
   .panel.active { display:block; }
   @keyframes fadeIn { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:none} }
 
+  /* SECTION TITLE */
   .sec { font-family:var(--fh); font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
   .sec::after { content:''; flex:1; height:1px; background:var(--border); }
 
+  /* TABLE */
   .table-wrap { overflow-x:auto; border-radius:8px; border:1px solid var(--border); margin-bottom:28px; }
   table { width:100%; border-collapse:collapse; font-size:14px; }
   thead th { background:var(--bg3); padding:9px 13px; text-align:left; font-family:var(--fh); font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); white-space:nowrap; border-bottom:1px solid var(--border); }
@@ -81,23 +87,27 @@
   .bar-fill { height:100%; background:linear-gradient(90deg,var(--accent2),var(--accent)); border-radius:2px; transition:width 0.8s cubic-bezier(0.16,1,0.3,1); }
   .bar-pct { font-family:var(--fh); font-size:12px; font-weight:600; color:var(--muted2); width:34px; text-align:right; }
 
+  /* FILTER BAR */
   .filter-bar { display:flex; align-items:center; gap:10px; margin-bottom:20px; flex-wrap:wrap; }
   .filter-label { font-family:var(--fh); font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); }
 
+  /* STAT CARDS */
   .cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(155px,1fr)); gap:10px; margin-bottom:24px; }
   .card { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:14px 16px; position:relative; overflow:hidden; transition:border-color var(--t),transform var(--t); }
-  .card:hover { border-color:rgba(232,200,74,0.3); transform:translateY(-2px); }
+  .card:hover { border-color:rgba(244,124,32,0.3); transform:translateY(-2px); }
   .card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--accent); opacity:0; transition:opacity var(--t); }
   .card:hover::before { opacity:1; }
   .card-label { font-family:var(--fh); font-size:9px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:5px; }
   .card-value { font-family:var(--fh); font-size:34px; font-weight:900; line-height:1; }
   .card-sub { font-size:10px; color:var(--muted); margin-top:3px; }
 
-  .pir { display:inline-block; background:rgba(232,200,74,0.12); color:var(--accent); font-family:var(--fh); font-weight:700; font-size:14px; padding:1px 7px; border-radius:4px; }
+  /* PIR / AVATAR */
+  .pir { display:inline-block; background:rgba(244,124,32,0.12); color:var(--accent); font-family:var(--fh); font-weight:700; font-size:14px; padding:1px 7px; border-radius:4px; }
   .pavatar { width:28px; height:28px; border-radius:50%; background:var(--bg3); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:var(--fh); font-size:9px; font-weight:700; color:var(--accent); flex-shrink:0; }
 
   .round-wrap { display:flex; align-items:center; gap:8px; margin-bottom:16px; }
 
+  /* LOADING / ERROR / EMPTY */
   .loading { display:flex; align-items:center; justify-content:center; gap:10px; padding:52px 0; color:var(--muted2); font-family:var(--fh); font-size:15px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; }
   .spin { width:18px; height:18px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin 0.65s linear infinite; }
   @keyframes spin { to{transform:rotate(360deg)} }
@@ -110,7 +120,97 @@
   th.sortable.asc::after  { content:' ↑'; }
   th.sortable.desc::after { content:' ↓'; }
 
-  .f4-badge { display:inline-flex; align-items:center; gap:5px; background:rgba(232,200,74,0.12); border:1px solid rgba(232,200,74,0.3); color:var(--accent); font-family:var(--fh); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:3px 8px; border-radius:4px; margin-left:10px; }
+  .f4-badge { display:inline-flex; align-items:center; gap:5px; background:rgba(244,124,32,0.12); border:1px solid rgba(244,124,32,0.3); color:var(--accent); font-family:var(--fh); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:3px 8px; border-radius:4px; margin-left:10px; }
+
+  /* ── PREDICTIONS ─────────────────────────────────────────────────────── */
+
+  /* Matchup selector */
+  .matchup-selectors { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px; margin-bottom:24px; }
+  .matchup-selectors .vs { font-family:var(--fh); font-size:28px; font-weight:900; color:var(--muted); text-align:center; }
+
+  /* Matchup result card */
+  .matchup-card { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:28px; margin-bottom:28px; position:relative; overflow:hidden; }
+  .matchup-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg, rgba(244,124,32,0.03) 0%, transparent 60%); pointer-events:none; }
+
+  .matchup-header { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:20px; margin-bottom:24px; }
+  .team-side { display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .team-side.right { align-items:center; }
+  .team-logo-lg { width:56px; height:56px; border-radius:50%; overflow:hidden; background:var(--bg3); border:2px solid var(--border); display:flex; align-items:center; justify-content:center; }
+  .team-logo-lg img { width:100%; height:100%; object-fit:contain; }
+  .team-logo-lg-text { font-family:var(--fh); font-size:14px; font-weight:800; color:var(--muted); }
+  .team-name-lg { font-family:var(--fh); font-size:18px; font-weight:800; text-align:center; line-height:1.1; }
+  .team-record { font-size:11px; color:var(--muted2); letter-spacing:0.05em; }
+
+  .prediction-center { text-align:center; }
+  .win-prob-wrap { display:flex; flex-direction:column; align-items:center; gap:4px; }
+  .win-prob-label { font-family:var(--fh); font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); }
+  .win-prob-bar-wrap { width:200px; height:10px; background:var(--bg3); border-radius:5px; overflow:hidden; margin:6px 0; }
+  .win-prob-bar { height:100%; border-radius:5px; transition:width 1s cubic-bezier(0.16,1,0.3,1); }
+  .win-prob-nums { display:flex; justify-content:space-between; width:200px; }
+  .win-prob-num { font-family:var(--fh); font-size:22px; font-weight:900; }
+  .win-prob-num.home { color:var(--accent); }
+  .win-prob-num.away { color:var(--blue); }
+  .predicted-score { font-family:var(--fh); font-size:13px; font-weight:700; color:var(--muted2); margin-top:8px; letter-spacing:0.05em; }
+  .prediction-verdict { font-family:var(--fh); font-size:14px; font-weight:800; color:var(--accent); text-transform:uppercase; letter-spacing:0.08em; margin-top:4px; }
+
+  /* Form last 5 */
+  .form-row { display:flex; gap:5px; margin-top:6px; }
+  .form-dot { width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--fh); font-size:9px; font-weight:800; }
+  .form-dot.W { background:rgba(34,197,94,0.2); color:var(--green); border:1px solid rgba(34,197,94,0.4); }
+  .form-dot.L { background:rgba(239,68,68,0.15); color:var(--red); border:1px solid rgba(239,68,68,0.3); }
+
+  /* Stat comparison rows */
+  .stat-compare { margin-top:20px; display:flex; flex-direction:column; gap:10px; }
+  .stat-compare-row { display:grid; grid-template-columns:60px 1fr 80px 1fr 60px; align-items:center; gap:8px; }
+  .sc-val { font-family:var(--fh); font-size:16px; font-weight:700; text-align:center; }
+  .sc-val.better { color:var(--accent); }
+  .sc-label { font-family:var(--fh); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); text-align:center; }
+  .sc-bar-wrap { display:flex; height:6px; border-radius:3px; overflow:hidden; gap:2px; }
+  .sc-bar-home { height:100%; background:var(--accent); border-radius:3px 0 0 3px; transition:width 0.8s ease; }
+  .sc-bar-away { height:100%; background:var(--blue); border-radius:0 3px 3px 0; transition:width 0.8s ease; }
+
+  /* Disclaimer */
+  .disclaimer { font-size:11px; color:var(--muted); text-align:center; margin-top:16px; font-style:italic; }
+
+  /* Player form cards */
+  .player-form-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; margin-bottom:28px; }
+  .player-form-card { background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:16px; position:relative; overflow:hidden; transition:border-color var(--t),transform var(--t); }
+  .player-form-card:hover { transform:translateY(-2px); }
+  .player-form-card.hot { border-color:rgba(239,68,68,0.4); }
+  .player-form-card.hot::before { content:''; position:absolute; top:0;left:0;right:0;height:3px; background:linear-gradient(90deg,#ff4444,#ff8800); }
+  .player-form-card.warm { border-color:rgba(244,124,32,0.4); }
+  .player-form-card.warm::before { content:''; position:absolute; top:0;left:0;right:0;height:3px; background:linear-gradient(90deg,var(--accent2),var(--accent)); }
+  .player-form-card.cold { border-color:rgba(59,130,246,0.4); }
+  .player-form-card.cold::before { content:''; position:absolute; top:0;left:0;right:0;height:3px; background:linear-gradient(90deg,#1d4ed8,#3b82f6); }
+  .player-form-card.neutral { border-color:var(--border); }
+
+  .pfc-header { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+  .pfc-avatar { width:36px; height:36px; border-radius:50%; background:var(--bg3); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:var(--fh); font-size:12px; font-weight:800; color:var(--accent); flex-shrink:0; }
+  .pfc-name { font-family:var(--fh); font-size:16px; font-weight:800; line-height:1; }
+  .pfc-streak { font-size:11px; margin-top:2px; font-weight:600; }
+  .pfc-streak.hot  { color:#ff6644; }
+  .pfc-streak.warm { color:var(--accent); }
+  .pfc-streak.cold { color:var(--blue); }
+  .pfc-streak.neutral { color:var(--muted2); }
+
+  .pfc-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-bottom:10px; }
+  .pfc-stat { text-align:center; }
+  .pfc-stat-val { font-family:var(--fh); font-size:18px; font-weight:900; line-height:1; }
+  .pfc-stat-val.up   { color:var(--green); }
+  .pfc-stat-val.down { color:var(--red); }
+  .pfc-stat-val.same { color:var(--text); }
+  .pfc-stat-label { font-size:9px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-top:2px; }
+
+  .pfc-trend { display:flex; align-items:center; gap:4px; }
+  .pfc-trend-label { font-size:10px; color:var(--muted); }
+  .pfc-trend-dots { display:flex; gap:3px; }
+  .pfc-dot { width:8px; height:8px; border-radius:50%; }
+  .pfc-dot.above { background:var(--green); }
+  .pfc-dot.below { background:var(--red); }
+  .pfc-dot.near  { background:var(--muted); }
+
+  .pfc-exp { font-size:11px; color:var(--muted2); margin-top:8px; padding-top:8px; border-top:1px solid var(--border); }
+  .pfc-exp strong { color:var(--accent); font-family:var(--fh); font-size:13px; }
 
   @media (max-width:700px) {
     header { padding:10px 14px; flex-wrap:wrap; height:auto; gap:10px; }
@@ -118,6 +218,12 @@
     main { padding:16px 10px 48px; }
     .banner { flex-direction:column; align-items:flex-start; gap:12px; }
     .cards { grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); }
+    .matchup-selectors { grid-template-columns:1fr; }
+    .matchup-selectors .vs { display:none; }
+    .matchup-header { grid-template-columns:1fr; }
+    .win-prob-bar-wrap, .win-prob-nums { width:160px; }
+    .stat-compare-row { grid-template-columns:50px 1fr 70px 1fr 50px; }
+    .player-form-grid { grid-template-columns:1fr; }
   }
 </style>
 </head>
@@ -156,12 +262,15 @@
     <button class="tab active" onclick="switchTab('standings')">Standings</button>
     <button class="tab" onclick="switchTab('teams')">Team Stats</button>
     <button class="tab" onclick="switchTab('players')">Player Stats</button>
+    <button class="tab" onclick="switchTab('predictions')">🔮 Predictions</button>
   </div>
 
+  <!-- Standings -->
   <div class="panel active" id="panel-standings">
     <div id="standingsOut"><div class="loading"><div class="spin"></div>Φόρτωση...</div></div>
   </div>
 
+  <!-- Team Stats -->
   <div class="panel" id="panel-teams">
     <div class="filter-bar">
       <span class="filter-label">Ομάδα</span>
@@ -172,6 +281,7 @@
     <div id="teamsOut"><div class="empty">Επίλεξε σεζόν και ομάδα.</div></div>
   </div>
 
+  <!-- Player Stats -->
   <div class="panel" id="panel-players">
     <div class="filter-bar">
       <span class="filter-label">Ομάδα</span>
@@ -187,449 +297,344 @@
     </div>
     <div id="playersOut"><div class="empty">Επίλεξε σεζόν και ομάδα.</div></div>
   </div>
+
+  <!-- Predictions -->
+  <div class="panel" id="panel-predictions">
+    <div class="sec">Matchup Prediction</div>
+
+    <div class="matchup-selectors">
+      <div>
+        <div class="filter-label" style="margin-bottom:6px">Home Team</div>
+        <select id="predHomeTeam" style="width:100%" onchange="runPrediction()">
+          <option value="">— Επίλεξε ομάδα —</option>
+        </select>
+      </div>
+      <div class="vs">VS</div>
+      <div>
+        <div class="filter-label" style="margin-bottom:6px">Away Team</div>
+        <select id="predAwayTeam" style="width:100%" onchange="runPrediction()">
+          <option value="">— Επίλεξε ομάδα —</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="predMatchupOut"><div class="empty">Επίλεξε δύο ομάδες για να δεις την πρόβλεψη.</div></div>
+
+    <div class="sec" style="margin-top:32px">Player Form & Streak Analysis</div>
+    <div class="filter-bar">
+      <span class="filter-label">Ομάδα</span>
+      <select id="predPlayerTeam" onchange="loadPlayerForm()">
+        <option value="">— Επίλεξε ομάδα —</option>
+      </select>
+    </div>
+    <div id="predPlayerOut"><div class="empty">Επίλεξε ομάδα για να δεις την φόρμα των παικτών.</div></div>
+  </div>
 </main>
 
 <script>
 const PROXY = 'https://euroleague-proxy.st-gardelis.workers.dev';
 const COMP  = 'E';
-const SEASON_LABELS = {
-  2025:'2025–26', 2024:'2024–25', 2023:'2023–24',
-  2022:'2022–23', 2021:'2021–22', 2020:'2020–21',
-};
-// Max rounds per season
-const MAX_ROUNDS = { 2025:38, 2024:34, 2023:34, 2022:34, 2021:34, 2020:34 };
+const SEASON_LABELS = { 2025:'2025–26',2024:'2024–25',2023:'2023–24',2022:'2022–23',2021:'2021–22',2020:'2020–21' };
+const MAX_ROUNDS    = { 2025:38,2024:34,2023:34,2022:34,2021:34,2020:34 };
 
 let currentYear  = 2025;
-let allTeamStats = [];
-let allClubs     = [];
+let allTeamStats = [];  // per-game season avgs keyed by team code
+let allClubs     = [];  // [{code,name,img}]
+let standingsMap = {};  // code → {gamesWon,gamesLost,gamesPlayed,winPct}
+let lastRound    = 38;
 
-// ── API ───────────────────────────────────────────────────────────────────
-async function apiFetch(path, params = {}) {
-  const qs  = new URLSearchParams(
-    Object.fromEntries(Object.entries(params).filter(([,v]) => v != null))
-  ).toString();
-  const url = `${PROXY}${path}${qs ? '?' + qs : ''}`;
-  const res = await fetch(url, { headers: { Accept: 'application/json' } });
+// ── API ────────────────────────────────────────────────────────────────────
+async function apiFetch(path, params={}) {
+  const qs  = new URLSearchParams(Object.fromEntries(Object.entries(params).filter(([,v])=>v!=null))).toString();
+  const url = `${PROXY}${path}${qs?'?'+qs:''}`;
+  const res = await fetch(url, { headers:{ Accept:'application/json' }});
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const text = await res.text();
-  if (!text.trim()) throw new Error('Κενή απάντηση');
-  return JSON.parse(text);
+  const txt = await res.text();
+  if (!txt.trim()) throw new Error('Κενή απάντηση');
+  return JSON.parse(txt);
 }
 
-// ── Helpers ───────────────────────────────────────────────────────────────
-const setLoad  = el => el.innerHTML = `<div class="loading"><div class="spin"></div>Φόρτωση...</div>`;
-const setEmpty = (el, m='Δεν βρέθηκαν δεδομένα.') => el.innerHTML = `<div class="empty">${m}</div>`;
-const setErr   = (el, m) => el.innerHTML = `<div class="err"><strong>Σφάλμα</strong>${m}</div>`;
-const sc       = yr => `${COMP}${yr}`;
+// ── Helpers ────────────────────────────────────────────────────────────────
+const setLoad  = el => el.innerHTML=`<div class="loading"><div class="spin"></div>Φόρτωση...</div>`;
+const setEmpty = (el,m='Δεν βρέθηκαν δεδομένα.')=>el.innerHTML=`<div class="empty">${m}</div>`;
+const setErr   = (el,m)=>el.innerHTML=`<div class="err"><strong>Σφάλμα</strong>${m}</div>`;
+const sc       = yr=>`${COMP}${yr}`;
 
-// Unified numeric getter: handles both "51.7%" strings and plain numbers
-function getNum(val, fallbacks = []) {
-  const sources = [val, ...fallbacks];
-  for (const v of sources) {
-    if (v == null) continue;
-    if (typeof v === 'number') return v;
-    if (typeof v === 'string') {
-      const clean = parseFloat(v.replace('%',''));
-      if (!isNaN(clean)) return clean;
-    }
+function getNum(val,fallbacks=[]) {
+  for(const v of [val,...fallbacks]) {
+    if(v==null) continue;
+    if(typeof v==='number') return v;
+    if(typeof v==='string') { const n=parseFloat(v.replace('%','')); if(!isNaN(n)) return n; }
   }
   return null;
 }
-
-function fmt(val, d=1, fallbacks=[]) {
-  const n = getNum(val, fallbacks);
-  return n == null ? '—' : n.toFixed(d);
-}
-
-// For percentages: if value already has %, return as-is; else format as float
-function fmtPct(val, fallbacks=[]) {
-  const sources = [val, ...fallbacks];
-  for (const v of sources) {
-    if (v == null) continue;
-    if (typeof v === 'string' && v.includes('%')) return v;
-    const n = parseFloat(v);
-    if (!isNaN(n)) return (n > 1 ? n.toFixed(1) : (n * 100).toFixed(1)) + '%';
+function fmt(val,d=1,fallbacks=[]) { const n=getNum(val,fallbacks); return n==null?'—':n.toFixed(d); }
+function fmtPct(val,fallbacks=[]) {
+  for(const v of [val,...fallbacks]) {
+    if(v==null) continue;
+    if(typeof v==='string'&&v.includes('%')) return v;
+    const n=parseFloat(v); if(!isNaN(n)) return (n>1?n.toFixed(1):(n*100).toFixed(1))+'%';
   }
   return '—';
 }
-
-const ini = n => n ? n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase() : '?';
+const ini = n => n?n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase():'?';
 
 function switchTab(name) {
-  document.querySelectorAll('.tab').forEach((t,i) =>
-    t.classList.toggle('active', ['standings','teams','players'][i]===name));
-  document.querySelectorAll('.panel').forEach(p =>
-    p.classList.toggle('active', p.id==='panel-'+name));
+  document.querySelectorAll('.tab').forEach((t,i)=>
+    t.classList.toggle('active',['standings','teams','players','predictions'][i]===name));
+  document.querySelectorAll('.panel').forEach(p=>
+    p.classList.toggle('active',p.id==='panel-'+name));
 }
 
-// ── Load Season ───────────────────────────────────────────────────────────
+// ── Load Season ────────────────────────────────────────────────────────────
 async function loadSeason() {
-  const btn = document.getElementById('loadBtn');
-  btn.disabled = true; btn.textContent = '...';
-  currentYear = parseInt(document.getElementById('seasonSel').value);
+  const btn=document.getElementById('loadBtn');
+  btn.disabled=true; btn.textContent='...';
+  currentYear=parseInt(document.getElementById('seasonSel').value);
 
-  document.getElementById('banner').style.display = '';
-  document.getElementById('tabs').style.display   = '';
-  document.getElementById('bannerSeason').textContent = SEASON_LABELS[currentYear];
-  document.getElementById('bannerSub').textContent    = 'Φόρτωση...';
+  document.getElementById('banner').style.display='';
+  document.getElementById('tabs').style.display='';
+  document.getElementById('bannerSeason').textContent=SEASON_LABELS[currentYear];
+  document.getElementById('bannerSub').textContent='Φόρτωση...';
 
   setLoad(document.getElementById('standingsOut'));
-  setEmpty(document.getElementById('teamsOut'),   'Επίλεξε ομάδα.');
-  setEmpty(document.getElementById('playersOut'), 'Επίλεξε ομάδα.');
+  setEmpty(document.getElementById('teamsOut'),'Επίλεξε ομάδα.');
+  setEmpty(document.getElementById('playersOut'),'Επίλεξε ομάδα.');
+  setEmpty(document.getElementById('predMatchupOut'),'Επίλεξε δύο ομάδες για να δεις την πρόβλεψη.');
+  setEmpty(document.getElementById('predPlayerOut'),'Επίλεξε ομάδα για να δεις την φόρμα των παικτών.');
   switchTab('standings');
 
-  ['teamSel','playerTeamSel'].forEach(id =>
-    document.getElementById(id).innerHTML = '<option value="">— Φόρτωση... —</option>'
+  ['teamSel','playerTeamSel','predHomeTeam','predAwayTeam','predPlayerTeam'].forEach(id=>
+    document.getElementById(id).innerHTML='<option value="">— Φόρτωση... —</option>'
   );
 
-  await Promise.allSettled([ loadStandings(), loadTeamStatsBulk() ]);
+  await Promise.allSettled([loadStandings(), loadTeamStatsBulk()]);
 
-  btn.disabled = false; btn.textContent = 'Load';
+  btn.disabled=false; btn.textContent='Load';
 }
 
-// ── Standings ─────────────────────────────────────────────────────────────
-// Endpoint: /v3/competitions/E/seasons/E2025/rounds/{round}/basicstandings
+// ── Standings ──────────────────────────────────────────────────────────────
 async function loadStandings() {
-  const el = document.getElementById('standingsOut');
+  const el=document.getElementById('standingsOut');
   setLoad(el);
   try {
-    const BASE  = `/v3/competitions/${COMP}/seasons/${sc(currentYear)}/rounds`;
-    const maxR  = MAX_ROUNDS[currentYear] || 38;
-    let data, round = maxR;
-
-    while (round >= 1) {
-      try {
-        const d = await apiFetch(`${BASE}/${round}/basicstandings`);
-        if (d?.teams?.length) { data = d; break; }
-      } catch(e) { /* 404 = not played, try lower */ }
+    const BASE=`/v3/competitions/${COMP}/seasons/${sc(currentYear)}/rounds`;
+    const maxR=MAX_ROUNDS[currentYear]||38;
+    let data, round=maxR;
+    while(round>=1) {
+      try { const d=await apiFetch(`${BASE}/${round}/basicstandings`); if(d?.teams?.length){data=d;break;} } catch(e){}
       round--;
     }
+    if(!data?.teams?.length){setEmpty(el,'Δεν βρέθηκαν standings.'); return;}
+    lastRound=round;
 
-    if (!data?.teams?.length) {
-      setEmpty(el, 'Δεν βρέθηκαν standings για αυτή τη σεζόν.'); return;
-    }
+    // Build standingsMap for predictions
+    standingsMap={};
+    data.teams.forEach(t=>{
+      const code=t.club?.code;
+      if(code) standingsMap[code]={
+        gamesPlayed:t.gamesPlayed??0,
+        gamesWon:t.gamesWon??0,
+        gamesLost:t.gamesLost??0,
+        winPct: parseFloat(t.winPercentage)||0,
+        position:t.position??99,
+      };
+    });
 
-    const teams   = data.teams;
-    const isF4    = currentYear === 2025;
-    const bannerP = isF4
-      ? `Regular Season · Round ${round} · <span class="f4-badge">🏆 F4 22-24 Μαΐου · Αθήνα</span>`
-      : `Regular Season · Αγωνιστική ${round} · ${teams.length} ομάδες`;
-
-    document.getElementById('bannerSub').innerHTML = bannerP;
-    document.getElementById('bannerMeta').innerHTML = `
+    const teams=data.teams;
+    const isF4=currentYear===2025;
+    document.getElementById('bannerSub').innerHTML=isF4
+      ?`Regular Season · Round ${round} · <span class="f4-badge">🏆 F4 22-24 Μαΐου · Αθήνα</span>`
+      :`Regular Season · Αγωνιστική ${round} · ${teams.length} ομάδες`;
+    document.getElementById('bannerMeta').innerHTML=`
       <div style="text-align:center"><div class="meta-v">${teams.length}</div><div class="meta-l">Ομάδες</div></div>
       <div style="text-align:center"><div class="meta-v">${round}</div><div class="meta-l">Rounds</div></div>`;
 
-    el.innerHTML = `
+    el.innerHTML=`
       <div class="round-wrap">
         <span class="filter-label">Αγωνιστική</span>
         <select id="roundSel" onchange="changeRound(this.value)">
-          ${Array.from({length:round},(_,i)=>round-i)
-            .map(r=>`<option value="${r}" ${r===round?'selected':''}>${r}</option>`).join('')}
+          ${Array.from({length:round},(_,i)=>round-i).map(r=>`<option value="${r}" ${r===round?'selected':''}>${r}</option>`).join('')}
         </select>
       </div>
-      <div class="table-wrap">
-        <table id="standingsTbl">
-          <thead><tr>
-            <th>#</th><th>Ομάδα</th>
-            <th class="sortable" onclick="sortTbl('standingsTbl',2,this)">Αγ</th>
-            <th class="sortable" onclick="sortTbl('standingsTbl',3,this)">Ν</th>
-            <th class="sortable" onclick="sortTbl('standingsTbl',4,this)">Η</th>
-            <th>Win%</th>
-          </tr></thead>
-          <tbody>${buildStandRows(teams)}</tbody>
-        </table>
-      </div>`;
-  } catch(e) {
-    setErr(el, `Αδύνατη φόρτωση standings: ${e.message}`);
-  }
+      <div class="table-wrap"><table id="standingsTbl">
+        <thead><tr><th>#</th><th>Ομάδα</th>
+          <th class="sortable" onclick="sortTbl('standingsTbl',2,this)">Αγ</th>
+          <th class="sortable" onclick="sortTbl('standingsTbl',3,this)">Ν</th>
+          <th class="sortable" onclick="sortTbl('standingsTbl',4,this)">Η</th>
+          <th>Win%</th>
+        </tr></thead>
+        <tbody>${buildStandRows(teams)}</tbody>
+      </table></div>`;
+  } catch(e){ setErr(el,e.message); }
 }
 
 async function changeRound(round) {
   try {
-    const BASE = `/v3/competitions/${COMP}/seasons/${sc(currentYear)}/rounds`;
-    const data = await apiFetch(`${BASE}/${round}/basicstandings`);
-    document.querySelector('#standingsTbl tbody').innerHTML = buildStandRows(data.teams||[]);
-  } catch(e) { console.error(e); }
+    const d=await apiFetch(`/v3/competitions/${COMP}/seasons/${sc(currentYear)}/rounds/${round}/basicstandings`);
+    document.querySelector('#standingsTbl tbody').innerHTML=buildStandRows(d.teams||[]);
+  } catch(e){}
 }
 
 function buildStandRows(teams) {
-  return teams.map((t,i) => {
-    const rank   = t.position ?? i+1;
-    const name   = t.club?.name || '—';
-    const code   = t.club?.code || '—';
-    const img    = t.club?.images?.crest || '';
-    const played = t.gamesPlayed ?? 0;
-    const wins   = t.gamesWon   ?? 0;
-    const losses = t.gamesLost  ?? 0;
-    // winPercentage comes as "68.4%" string from API
-    const pctStr = t.winPercentage || '';
-    const pctNum = parseFloat(pctStr) || (played>0 ? Math.round(wins/played*100) : 0);
-    const cls    = rank<=4?'g1':rank<=8?'g2':'';
-    const logoHtml = img
-      ? `<img src="${img}" alt="${code}" loading="lazy" />`
-      : `<span class="tlogo-text">${code.slice(0,3)}</span>`;
+  return teams.map((t,i)=>{
+    const rank=t.position??i+1, name=t.club?.name||'—', code=t.club?.code||'—';
+    const img=t.club?.images?.crest||'';
+    const played=t.gamesPlayed??0, wins=t.gamesWon??0, losses=t.gamesLost??0;
+    const pctStr=t.winPercentage||'';
+    const pctNum=parseFloat(pctStr)||(played>0?Math.round(wins/played*100):0);
+    const cls=rank<=4?'g1':rank<=8?'g2':'';
+    const logoHtml=img?`<img src="${img}" alt="${code}" loading="lazy"/>`:`<span class="tlogo-text">${code.slice(0,3)}</span>`;
     return `<tr>
       <td class="rank ${cls}">${rank}</td>
-      <td><div class="tc">
-        <div class="tlogo">${logoHtml}</div>
+      <td><div class="tc"><div class="tlogo">${logoHtml}</div>
         <div><div class="tname">${name}</div><div class="tcode">${code}</div></div>
       </div></td>
       <td class="num" data-n="${played}">${played}</td>
       <td class="num w" data-n="${wins}">${wins}</td>
       <td class="num l" data-n="${losses}">${losses}</td>
-      <td><div class="bar">
-        <div class="bar-bg"><div class="bar-fill" style="width:${pctNum}%"></div></div>
-        <div class="bar-pct">${pctStr || pctNum+'%'}</div>
-      </div></td>
+      <td><div class="bar"><div class="bar-bg"><div class="bar-fill" style="width:${pctNum}%"></div></div>
+        <div class="bar-pct">${pctStr||pctNum+'%'}</div></div></td>
     </tr>`;
   }).join('');
 }
 
 // ── Team Stats Bulk ────────────────────────────────────────────────────────
-// Response fields (E2025): pointsScored, twoPointersMade, twoPointersAttempted,
-// twoPointersPercentage (string), threePointersMade, threePointersAttempted,
-// threePointersPercentage (string), freeThrowsMade, freeThrowsAttempted,
-// freeThrowsPercentage (string), offensiveRebounds, defensiveRebounds,
-// totalRebounds, assists, steals, turnovers, blocksAgainst, blocksFavour,
-// foulsCommited, foulsReceived, valuation
 async function loadTeamStatsBulk() {
   try {
-    const data = await apiFetch(`/v3/competitions/${COMP}/statistics/teams/traditional`, {
-      SeasonMode: 'Single', SeasonCode: sc(currentYear),
-      statisticMode: 'PerGame', limit: 400
+    const data=await apiFetch(`/v3/competitions/${COMP}/statistics/teams/traditional`,{
+      SeasonMode:'Single',SeasonCode:sc(currentYear),statisticMode:'PerGame',limit:400
     });
+    allTeamStats=data.teams||[];
+    allClubs=allTeamStats.map(t=>({code:t.team?.code,name:t.team?.name,img:t.team?.imageUrl}))
+      .filter(c=>c.code).sort((a,b)=>a.name.localeCompare(b.name));
 
-    allTeamStats = data.teams || [];
-    allClubs = allTeamStats
-      .map(t => ({ code: t.team?.code, name: t.team?.name, img: t.team?.imageUrl }))
-      .filter(c => c.code)
-      .sort((a,b) => a.name.localeCompare(b.name));
-
-    const opts = allClubs.map(c =>
-      `<option value="${c.code}">${c.name}</option>`
-    ).join('');
-
-    ['teamSel','playerTeamSel'].forEach(id => {
-      document.getElementById(id).innerHTML =
-        '<option value="">— Επίλεξε ομάδα —</option>' + opts;
+    const opts=allClubs.map(c=>`<option value="${c.code}">${c.name}</option>`).join('');
+    ['teamSel','playerTeamSel','predHomeTeam','predAwayTeam','predPlayerTeam'].forEach(id=>{
+      document.getElementById(id).innerHTML='<option value="">— Επίλεξε ομάδα —</option>'+opts;
     });
-
-  } catch(e) {
-    console.warn('Team stats bulk failed:', e.message);
+  } catch(e){
+    console.warn('Bulk team stats failed:',e.message);
     setFallbackClubs();
   }
 }
 
 function setFallbackClubs() {
-  const fallback = [
-    ['OLY','Olympiacos Piraeus'],['MAD','Real Madrid'],
-    ['ULK','Fenerbahce Beko'],['VBC','Valencia Basket'],
-    ['BAR','FC Barcelona'],['PAO','Panathinaikos AKTOR'],
-    ['MCO','AS Monaco'],['MIL','EA7 Emporio Armani Milano'],
-    ['ASV','LDLC ASVEL Villeurbanne'],['ASB','Virtus Segafredo Bologna'],
-    ['BAS','Kosner Baskonia'],['ZAL','Zalgiris Kaunas'],
-    ['PAR','Partizan Mozzart Bet'],['RED','Crvena Zvezda'],
-    ['IST','Anadolu Efes'],['BAY','FC Bayern Munich'],
-    ['PRS','Paris Basketball'],['HAP','Hapoel IBI Tel Aviv'],
-    ['MAC','Maccabi Rapyd Tel Aviv'],['DUB','Dubai Basketball'],
-  ];
-  allClubs = fallback.map(([code,name]) => ({code,name}));
-  const opts = fallback.map(([c,n]) => `<option value="${c}">${n}</option>`).join('');
-  ['teamSel','playerTeamSel'].forEach(id => {
-    document.getElementById(id).innerHTML =
-      '<option value="">— Επίλεξε ομάδα —</option>' + opts;
-  });
+  const fb=[['OLY','Olympiacos'],['MAD','Real Madrid'],['ULK','Fenerbahce'],['BAR','FC Barcelona'],['PAO','Panathinaikos'],['MCO','Monaco'],['MIL','EA7 Milano'],['ASV','Virtus Bologna'],['BAS','Baskonia'],['ZAL','Zalgiris'],['PAR','Partizan'],['RED','Crvena Zvezda'],['IST','Anadolu Efes'],['BER','Alba Berlin'],['PRS','Paris Basketball'],['HAP','Hapoel Tel Aviv'],['MAC','Maccabi Tel Aviv'],['DUB','Dubai Basketball'],['BAY','FC Bayern'],['VBC','Valencia']];
+  allClubs=fb.map(([code,name])=>({code,name}));
+  const opts=fb.map(([c,n])=>`<option value="${c}">${n}</option>`).join('');
+  ['teamSel','playerTeamSel','predHomeTeam','predAwayTeam','predPlayerTeam'].forEach(id=>
+    document.getElementById(id).innerHTML='<option value="">— Επίλεξε ομάδα —</option>'+opts
+  );
 }
 
-// ── Team Stats (single team) ───────────────────────────────────────────────
+// ── Team Stats (single) ────────────────────────────────────────────────────
 async function loadTeamStats() {
-  const code = document.getElementById('teamSel').value;
-  const el   = document.getElementById('teamsOut');
-  if (!code) { setEmpty(el,'Επίλεξε ομάδα.'); return; }
+  const code=document.getElementById('teamSel').value;
+  const el=document.getElementById('teamsOut');
+  if(!code){setEmpty(el,'Επίλεξε ομάδα.');return;}
   setLoad(el);
-
   try {
-    let s = allTeamStats.find(t => t.team?.code === code);
-
-    if (!s) {
-      const data = await apiFetch(`/v3/competitions/${COMP}/statistics/teams/traditional`, {
-        SeasonMode: 'Single', SeasonCode: sc(currentYear),
-        statisticMode: 'PerGame', limit: 400
-      });
-      allTeamStats = data.teams || [];
-      s = allTeamStats.find(t => t.team?.code === code);
+    let s=allTeamStats.find(t=>t.team?.code===code);
+    if(!s){
+      const d=await apiFetch(`/v3/competitions/${COMP}/statistics/teams/traditional`,{SeasonMode:'Single',SeasonCode:sc(currentYear),statisticMode:'PerGame',limit:400});
+      allTeamStats=d.teams||[]; s=allTeamStats.find(t=>t.team?.code===code);
     }
+    if(!s){setEmpty(el,'Δεν βρέθηκαν stats.');return;}
 
-    if (!s) { setEmpty(el,'Δεν βρέθηκαν stats για αυτή την ομάδα.'); return; }
+    const teamName=s.team?.name||code, label=SEASON_LABELS[currentYear];
+    const teamImg=s.team?.imageUrl||allClubs.find(c=>c.code===code)?.img;
+    const pts=fmt(s.pointsScored??s.score), ptsa=fmt(s.pointsAgainst);
+    const reb=fmt(s.totalRebounds), oreb=fmt(s.offensiveRebounds), dreb=fmt(s.defensiveRebounds);
+    const ast=fmt(s.assists??s.assistances), stl=fmt(s.steals), blk=fmt(s.blocksFavour), blka=fmt(s.blocksAgainst), tov=fmt(s.turnovers), pir=fmt(s.valuation,0);
+    const fg2m=fmt(s.twoPointersMade??s.fieldGoalsMade2,0), fg2a=fmt(s.twoPointersAttempted??s.fieldGoalsAttempted2,0);
+    const fg2pct=fmtPct(s.twoPointersPercentage??s.fieldGoals2Percent);
+    const fg3m=fmt(s.threePointersMade??s.fieldGoalsMade3,0), fg3a=fmt(s.threePointersAttempted??s.fieldGoalsAttempted3,0);
+    const fg3pct=fmtPct(s.threePointersPercentage??s.fieldGoals3Percent);
+    const ftm=fmt(s.freeThrowsMade,0), fta=fmt(s.freeThrowsAttempted,0);
+    const ftpct=fmtPct(s.freeThrowsPercentage??s.freeThrowsPercent);
 
-    const teamName = s.team?.name || code;
-    const label    = SEASON_LABELS[currentYear];
-    const teamImg  = s.team?.imageUrl || allClubs.find(c=>c.code===code)?.img;
-
-    // Unified field access — handles both old (fieldGoalsMade2) and new (twoPointersMade) naming
-    const pts  = fmt(s.pointsScored ?? s.score);
-    const ptsa = fmt(s.pointsAgainst);
-    const reb  = fmt(s.totalRebounds);
-    const oreb = fmt(s.offensiveRebounds);
-    const dreb = fmt(s.defensiveRebounds);
-    const ast  = fmt(s.assists ?? s.assistances);
-    const stl  = fmt(s.steals);
-    const blk  = fmt(s.blocksFavour);
-    const blka = fmt(s.blocksAgainst);
-    const tov  = fmt(s.turnovers);
-    const pir  = fmt(s.valuation, 0);
-
-    // FG2
-    const fg2m   = fmt(s.twoPointersMade    ?? s.fieldGoalsMade2,    0);
-    const fg2a   = fmt(s.twoPointersAttempted ?? s.fieldGoalsAttempted2, 0);
-    const fg2pct = fmtPct(s.twoPointersPercentage ?? s.fieldGoals2Percent ?? s.fieldGoalsPercent2);
-    // FG3
-    const fg3m   = fmt(s.threePointersMade    ?? s.fieldGoalsMade3,    0);
-    const fg3a   = fmt(s.threePointersAttempted ?? s.fieldGoalsAttempted3, 0);
-    const fg3pct = fmtPct(s.threePointersPercentage ?? s.fieldGoals3Percent ?? s.threePointPercent);
-    // FT
-    const ftm    = fmt(s.freeThrowsMade,    0);
-    const fta    = fmt(s.freeThrowsAttempted, 0);
-    const ftpct  = fmtPct(s.freeThrowsPercentage ?? s.freeThrowsPercent);
-
-    el.innerHTML = `
+    el.innerHTML=`
       <div class="sec" style="align-items:center">
-        ${teamImg ? `<img src="${teamImg}" style="width:24px;height:24px;object-fit:contain;border-radius:50%;margin-right:4px" />` : ''}
+        ${teamImg?`<img src="${teamImg}" style="width:24px;height:24px;object-fit:contain;border-radius:50%;margin-right:4px"/>`:''}
         ${teamName} · ${label} · Per Game
       </div>
       <div class="cards">
-        ${card('Πόντοι',      pts,  `Αντ: ${ptsa}`)}
-        ${card('Ριμπ. Συν.', reb,  `Off: ${oreb} · Def: ${dreb}`)}
-        ${card('Ασίστ',      ast)}
-        ${card('Κλεψίματα',  stl)}
-        ${card('Κοψίματα',   blk,  `Κατά: ${blka}`)}
-        ${card('Λάθη',       tov)}
-        ${card('FG2%',       fg2pct, `${fg2m}/${fg2a}`)}
-        ${card('3P%',        fg3pct, `${fg3m}/${fg3a}`)}
-        ${card('FT%',        ftpct,  `${ftm}/${fta}`)}
-        ${card('PIR',        pir)}
+        ${card('Πόντοι',pts,`Αντ: ${ptsa}`)}${card('Ριμπ. Συν.',reb,`Off: ${oreb} · Def: ${dreb}`)}
+        ${card('Ασίστ',ast)}${card('Κλεψίματα',stl)}${card('Κοψίματα',blk,`Κατά: ${blka}`)}
+        ${card('Λάθη',tov)}${card('FG2%',fg2pct,`${fg2m}/${fg2a}`)}${card('3P%',fg3pct,`${fg3m}/${fg3a}`)}
+        ${card('FT%',ftpct,`${ftm}/${fta}`)}${card('PIR',pir)}
       </div>
-      <div class="sec">Πλήρης Λίστα Στατιστικών</div>
+      <div class="sec">Πλήρης Λίστα</div>
       <div class="table-wrap"><table>
         <thead><tr><th>Κατηγορία</th><th style="text-align:right">Τιμή</th></tr></thead>
-        <tbody>${fullRows(s, {pts,ptsa,reb,oreb,dreb,ast,stl,blk,blka,tov,pir,fg2m,fg2a,fg2pct,fg3m,fg3a,fg3pct,ftm,fta,ftpct})}</tbody>
+        <tbody>${[
+          ['Αγώνες',s.gamesPlayed],['Πόντοι avg',pts],['Πόντοι αντ.',ptsa],
+          ['Ριμπ. Off.',oreb],['Ριμπ. Def.',dreb],['Ριμπ. Σύν.',reb],
+          ['Ασίστ',ast],['Κλεψίματα',stl],['Κοψίματα υπέρ',blk],['Κοψίματα κατά',blka],
+          ['Λάθη',tov],['Φάουλ κερδ.',fmt(s.foulsReceived)],['Φάουλ διαπρ.',fmt(s.foulsCommited)],
+          ['Σούτ 2π Ε/Α',`${fg2m}/${fg2a}`],['Σούτ 2π %',fg2pct],
+          ['Τρίποντα Ε/Α',`${fg3m}/${fg3a}`],['Τρίποντα %',fg3pct],
+          ['Ελεύθερες Ε/Α',`${ftm}/${fta}`],['Ελεύθερες %',ftpct],['PIR',pir]
+        ].map(([l,v])=>`<tr><td style="color:var(--muted2)">${l}</td><td class="num">${v??'—'}</td></tr>`).join('')}
+        </tbody>
       </table></div>`;
-  } catch(e) { setErr(el, e.message); }
+  } catch(e){setErr(el,e.message);}
 }
 
-function card(label, value, sub='') {
-  return `<div class="card">
-    <div class="card-label">${label}</div>
-    <div class="card-value">${value??'—'}</div>
-    ${sub?`<div class="card-sub">${sub}</div>`:''}
-  </div>`;
-}
-
-function fullRows(s, f) {
-  return [
-    ['Αγώνες',           s.gamesPlayed],
-    ['Πόντοι avg',       f.pts],
-    ['Πόντοι αντ. avg',  f.ptsa],
-    ['Ριμπ. Επιθετικά',  f.oreb],
-    ['Ριμπ. Αμυντικά',   f.dreb],
-    ['Ριμπ. Σύνολο',     f.reb],
-    ['Ασίστ',            f.ast],
-    ['Κλεψίματα',        f.stl],
-    ['Κοψίματα (υπέρ)',  f.blk],
-    ['Κοψίματα (κατά)',  f.blka],
-    ['Λάθη',             f.tov],
-    ['Φάουλ κερδ.',      fmt(s.foulsReceived)],
-    ['Φάουλ διαπρ.',     fmt(s.foulsCommited)],
-    ['Σούτ 2π Ε/Α',      `${f.fg2m} / ${f.fg2a}`],
-    ['Σούτ 2π %',        f.fg2pct],
-    ['Τρίποντα Ε/Α',     `${f.fg3m} / ${f.fg3a}`],
-    ['Τρίποντα %',       f.fg3pct],
-    ['Ελεύθερες Ε/Α',    `${f.ftm} / ${f.fta}`],
-    ['Ελεύθερες %',      f.ftpct],
-    ['PIR',              f.pir],
-  ].map(([l,v]) =>
-    `<tr><td style="color:var(--muted2)">${l}</td><td class="num">${v??'—'}</td></tr>`
-  ).join('');
+function card(label,value,sub='') {
+  return `<div class="card"><div class="card-label">${label}</div><div class="card-value">${value??'—'}</div>${sub?`<div class="card-sub">${sub}</div>`:''}</div>`;
 }
 
 // ── Player Stats ───────────────────────────────────────────────────────────
-// E2025 player fields: score, twoPointersMade, threePointersMade,
-// freeThrowsMade, totalRebounds, assists, steals, turnovers,
-// blocksFavour, valuation, timePlayed, gamesPlayed
 async function loadPlayerStats() {
-  const code = document.getElementById('playerTeamSel').value;
-  const mode = document.getElementById('statModeSel').value;
-  const el   = document.getElementById('playersOut');
-  if (!code) { setEmpty(el,'Επίλεξε ομάδα.'); return; }
+  const code=document.getElementById('playerTeamSel').value;
+  const mode=document.getElementById('statModeSel').value;
+  const el=document.getElementById('playersOut');
+  if(!code){setEmpty(el,'Επίλεξε ομάδα.');return;}
   setLoad(el);
-
   try {
-    // Το TeamCode param αγνοείται από το API — φέρνουμε όλους και φιλτράρουμε client-side
-    const data = await apiFetch(`/v3/competitions/${COMP}/statistics/players/traditional`, {
-      SeasonMode: 'Single', SeasonCode: sc(currentYear),
-      statisticMode: mode, limit: 600
+    const data=await apiFetch(`/v3/competitions/${COMP}/statistics/players/traditional`,{
+      SeasonMode:'Single',SeasonCode:sc(currentYear),statisticMode:mode,limit:600
     });
+    const allP=data.players||[];
+    const players=allP.filter(p=>(p.team?.code||p.player?.team?.code||'')===code);
+    if(!players.length){setEmpty(el,`Δεν βρέθηκαν παίκτες για ${code}.`);return;}
+    players.sort((a,b)=>(getNum(b.valuation)??0)-(getNum(a.valuation)??0));
 
-    const allPlayers = data.players || [];
+    const teamName=allClubs.find(c=>c.code===code)?.name||code;
+    const modeLabel={PerGame:'Per Game',Accumulated:'Σύνολο',PerMinute:'Per Min'}[mode]||mode;
 
-    // Client-side filter: κρατάμε μόνο τους παίκτες της επιλεγμένης ομάδας
-    // Το team code μπορεί να είναι στο p.team.code ή p.player.team.code
-    const players = allPlayers.filter(p => {
-      const tcode = p.team?.code || p.player?.team?.code || '';
-      return tcode === code;
-    });
-
-    if (!players.length) { setEmpty(el,`Δεν βρέθηκαν παίκτες για ${code}. (Total fetched: ${allPlayers.length})`); return; }
-
-    players.sort((a,b) => (getNum(b.valuation)??0) - (getNum(a.valuation)??0));
-
-    const teamName  = allClubs.find(c=>c.code===code)?.name || code;
-    const modeLabel = {PerGame:'Per Game',Accumulated:'Σύνολο',PerMinute:'Per Min'}[mode]||mode;
-
-    el.innerHTML = `
+    el.innerHTML=`
       <div class="sec">${teamName} · Παίκτες · ${modeLabel}</div>
-      <div class="table-wrap">
-        <table id="plTbl">
-          <thead><tr>
-            <th>Παίκτης</th>
-            <th class="sortable" onclick="sortTbl('plTbl',1,this)">Αγ</th>
-            <th class="sortable" onclick="sortTbl('plTbl',2,this)">Λεπτά</th>
-            <th class="sortable" onclick="sortTbl('plTbl',3,this)">Πόντοι</th>
-            <th class="sortable" onclick="sortTbl('plTbl',4,this)">Ριμπ</th>
-            <th class="sortable" onclick="sortTbl('plTbl',5,this)">Ασίστ</th>
-            <th class="sortable" onclick="sortTbl('plTbl',6,this)">Κλ</th>
-            <th class="sortable" onclick="sortTbl('plTbl',7,this)">Κοψ</th>
-            <th class="sortable" onclick="sortTbl('plTbl',8,this)">Λάθη</th>
-            <th class="sortable desc" onclick="sortTbl('plTbl',9,this)">PIR</th>
-          </tr></thead>
-          <tbody>${players.map(playerRow).join('')}</tbody>
-        </table>
-      </div>`;
-  } catch(e) { setErr(el, e.message); }
+      <div class="table-wrap"><table id="plTbl">
+        <thead><tr>
+          <th>Παίκτης</th>
+          <th class="sortable" onclick="sortTbl('plTbl',1,this)">Αγ</th>
+          <th class="sortable" onclick="sortTbl('plTbl',2,this)">Λεπτά</th>
+          <th class="sortable" onclick="sortTbl('plTbl',3,this)">Πόντοι</th>
+          <th class="sortable" onclick="sortTbl('plTbl',4,this)">Ριμπ</th>
+          <th class="sortable" onclick="sortTbl('plTbl',5,this)">Ασίστ</th>
+          <th class="sortable" onclick="sortTbl('plTbl',6,this)">Κλ</th>
+          <th class="sortable" onclick="sortTbl('plTbl',7,this)">Κοψ</th>
+          <th class="sortable" onclick="sortTbl('plTbl',8,this)">Λάθη</th>
+          <th class="sortable desc" onclick="sortTbl('plTbl',9,this)">PIR</th>
+        </tr></thead>
+        <tbody>${players.map(playerRow).join('')}</tbody>
+      </table></div>`;
+  } catch(e){setErr(el,e.message);}
 }
 
 function playerRow(p) {
-  const name = p.player?.name || '—';
-  const gp   = p.gamesPlayed ?? '—';
-  const mins = p.timePlayed  ?? '—';
-  // New naming: score, assists / old: pointsScored, assistances
-  const pts  = fmt(p.score   ?? p.pointsScored ?? p.points);
-  const reb  = fmt(p.totalRebounds ?? p.rebounds);
-  const ast  = fmt(p.assists ?? p.assistances);
-  const stl  = fmt(p.steals);
-  const blk  = fmt(p.blocksFavour ?? p.blocks);
-  const tov  = fmt(p.turnovers);
-  const pir  = fmt(p.valuation ?? p.pir, 0);
-  const pirN = getNum(p.valuation ?? p.pir) ?? 0;
-  const minsN = parseFloat(mins) || 0;
+  const name=p.player?.name||'—', gp=p.gamesPlayed??'—', mins=p.timePlayed??'—';
+  const pts=fmt(p.score??p.pointsScored??p.points), reb=fmt(p.totalRebounds??p.rebounds);
+  const ast=fmt(p.assists??p.assistances), stl=fmt(p.steals), blk=fmt(p.blocksFavour??p.blocks);
+  const tov=fmt(p.turnovers), pir=fmt(p.valuation??p.pir,0);
+  const pirN=getNum(p.valuation??p.pir)??0;
   return `<tr>
-    <td><div class="tc">
-      <div class="pavatar">${ini(name)}</div>
-      <div class="tname" style="font-size:14px">${name}</div>
-    </div></td>
+    <td><div class="tc"><div class="pavatar">${ini(name)}</div><div class="tname" style="font-size:14px">${name}</div></div></td>
     <td class="num" data-n="${p.gamesPlayed??0}">${gp}</td>
-    <td class="num" data-n="${minsN}" style="color:var(--muted2)">${mins}</td>
+    <td class="num" data-n="${parseFloat(mins)||0}" style="color:var(--muted2)">${mins}</td>
     <td class="num" data-n="${parseFloat(pts)||0}">${pts}</td>
     <td class="num" data-n="${parseFloat(reb)||0}">${reb}</td>
     <td class="num" data-n="${parseFloat(ast)||0}">${ast}</td>
@@ -640,25 +645,391 @@ function playerRow(p) {
   </tr>`;
 }
 
-// ── Sort ───────────────────────────────────────────────────────────────────
-function sortTbl(tblId, colIdx, thEl) {
-  const tbl   = document.getElementById(tblId);
-  const tbody = tbl.querySelector('tbody');
-  const rows  = Array.from(tbody.querySelectorAll('tr'));
-  const ths   = tbl.querySelectorAll('th.sortable');
-  const wasDesc = thEl.classList.contains('desc');
-  ths.forEach(t => t.classList.remove('asc','desc'));
-  thEl.classList.add(wasDesc?'asc':'desc');
-  const desc = !wasDesc;
-  rows.sort((a,b) => {
-    const av = parseFloat(a.querySelectorAll('td')[colIdx]?.dataset?.n??0)||0;
-    const bv = parseFloat(b.querySelectorAll('td')[colIdx]?.dataset?.n??0)||0;
-    return desc ? bv-av : av-bv;
-  });
-  rows.forEach(r => tbody.appendChild(r));
+// ═══════════════════════════════════════════════════════════════════════════
+// ── PREDICTIONS ────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Helper: get per-game stats object for a team code
+function getTeamStats(code) {
+  return allTeamStats.find(t=>t.team?.code===code);
 }
 
-window.addEventListener('DOMContentLoaded', () => loadSeason());
+// Helper: fetch last N rounds of game results for a team
+// Uses /v3/competitions/E/seasons/E2025/rounds/{r}/basicstandings
+// to extract W/L per round — we scan the last N rounds
+async function fetchTeamRecentForm(code, rounds=10) {
+  const results = []; // [{round, won, pointsFor, pointsAgainst}]
+  const BASE = `/v3/competitions/${COMP}/seasons/${sc(currentYear)}/rounds`;
+
+  // Fetch last `rounds` rounds in parallel
+  const fetchPromises = [];
+  for(let r = lastRound; r > Math.max(lastRound - rounds, 0); r--) {
+    fetchPromises.push(
+      apiFetch(`${BASE}/${r}/results`).then(data => {
+        // results endpoint: {games:[{homeTeam:{code},awayTeam:{code},homeScore,awayScore}]}
+        const games = data.games || data.results || [];
+        const game  = games.find(g => g.homeTeam?.club?.code===code || g.awayTeam?.club?.code===code
+                                    || g.homeClub?.code===code      || g.awayClub?.code===code);
+        if(!game) return null;
+        const isHome = (game.homeTeam?.club?.code||game.homeClub?.code)===code;
+        const myScore  = isHome ? (game.homeScore??game.homePoints??0) : (game.awayScore??game.awayPoints??0);
+        const oppScore = isHome ? (game.awayScore??game.awayPoints??0) : (game.homeScore??game.homePoints??0);
+        return { round:r, won:myScore>oppScore, pf:myScore, pa:oppScore, isHome };
+      }).catch(()=>null)
+    );
+  }
+
+  const fetched = await Promise.all(fetchPromises);
+  fetched.forEach(f=>{ if(f) results.push(f); });
+  results.sort((a,b)=>b.round-a.round); // newest first
+  return results;
+}
+
+// ── PREDICTION ALGORITHM ───────────────────────────────────────────────────
+// Score = weighted combination of:
+//   1. Season win% (weight 0.35)
+//   2. Last 5 games form (weight 0.35)
+//   3. Offensive efficiency: pts scored avg (weight 0.15)
+//   4. Defensive efficiency: pts against avg (weight 0.15)
+// Home advantage: +5% boost to home team raw score
+// Output: probability [0..1] for home team to win
+
+function calcPrediction(homeCode, awayCode, homeForm, awayForm) {
+  const hs = getTeamStats(homeCode);
+  const as = getTeamStats(awayCode);
+  const hst= standingsMap[homeCode] || {};
+  const ast= standingsMap[awayCode] || {};
+
+  // 1. Win% component
+  const hWinPct = (hst.winPct||0) / 100;
+  const aWinPct = (ast.winPct||0) / 100;
+
+  // 2. Recent form (last 5)
+  const last5h = homeForm.slice(0,5);
+  const last5a = awayForm.slice(0,5);
+  const hFormPct = last5h.length ? last5h.filter(g=>g.won).length / last5h.length : 0.5;
+  const aFormPct = last5a.length ? last5a.filter(g=>g.won).length / last5a.length : 0.5;
+
+  // 3. Offensive efficiency (normalized: pts/100)
+  const hPts = (getNum(hs?.pointsScored??hs?.score)||75) / 100;
+  const aPts = (getNum(as?.pointsScored??as?.score)||75) / 100;
+
+  // 4. Defensive efficiency (lower pts against = better, invert)
+  const hDef = 1 - (getNum(hs?.pointsAgainst)||75) / 100;
+  const aDef = 1 - (getNum(as?.pointsAgainst)||75) / 100;
+
+  // Weighted raw scores
+  const hRaw = 0.35*hWinPct + 0.35*hFormPct + 0.15*hPts + 0.15*hDef;
+  const aRaw = 0.35*aWinPct + 0.35*aFormPct + 0.15*aPts + 0.15*aDef;
+
+  // Home advantage: +5% to home raw
+  const hAdj = hRaw * 1.05;
+  const aAdj = aRaw;
+
+  // Convert to probabilities
+  const total = hAdj + aAdj;
+  const hProb = total>0 ? hAdj/total : 0.5;
+  const aProb = 1 - hProb;
+
+  // Expected scores: season avg pts adjusted by opponent defense
+  const hExpPts = Math.round((getNum(hs?.pointsScored??hs?.score)||75) * (1 + (hDef - 0.25)*0.3));
+  const aExpPts = Math.round((getNum(as?.pointsScored??as?.score)||75) * (1 + (aDef - 0.25)*0.3));
+
+  return { hProb, aProb, hExpPts, aExpPts, hFormPct, aFormPct, hWinPct, aWinPct };
+}
+
+async function runPrediction() {
+  const homeCode = document.getElementById('predHomeTeam').value;
+  const awayCode = document.getElementById('predAwayTeam').value;
+  const el       = document.getElementById('predMatchupOut');
+
+  if(!homeCode || !awayCode) { setEmpty(el,'Επίλεξε και τις δύο ομάδες.'); return; }
+  if(homeCode === awayCode)  { setEmpty(el,'Επίλεξε διαφορετικές ομάδες.'); return; }
+
+  setLoad(el);
+
+  try {
+    // Fetch recent form for both teams in parallel
+    const [homeForm, awayForm] = await Promise.all([
+      fetchTeamRecentForm(homeCode, 10),
+      fetchTeamRecentForm(awayCode, 10),
+    ]);
+
+    const pred = calcPrediction(homeCode, awayCode, homeForm, awayForm);
+
+    const homeClub = allClubs.find(c=>c.code===homeCode) || {name:homeCode,img:''};
+    const awayClub = allClubs.find(c=>c.code===awayCode) || {name:awayCode,img:''};
+    const hSt = standingsMap[homeCode]||{};
+    const aSt = standingsMap[awayCode]||{};
+    const hs  = getTeamStats(homeCode);
+    const as_ = getTeamStats(awayCode);
+
+    const hProbPct = Math.round(pred.hProb*100);
+    const aProbPct = Math.round(pred.aProb*100);
+    const winner   = pred.hProb >= 0.5 ? homeClub.name : awayClub.name;
+    const confidence = Math.abs(hProbPct-50)*2; // 0-100
+
+    // Form dots (last 5)
+    const formDots = (form) => form.slice(0,5).map(g=>
+      `<div class="form-dot ${g.won?'W':'L'}">${g.won?'Ν':'Η'}</div>`
+    ).join('');
+
+    const logoHtml = (club) => club.img
+      ? `<img src="${club.img}" style="width:100%;height:100%;object-fit:contain"/>`
+      : `<span class="team-logo-lg-text">${club.code?.slice(0,3)||'?'}</span>`;
+
+    // Stat comparison rows
+    const statRows = [
+      { label:'Πόντοι avg', hVal:getNum(hs?.pointsScored??hs?.score)||0, aVal:getNum(as_?.pointsScored??as_?.score)||0, higherIsBetter:true },
+      { label:'Αντίπαλοι avg', hVal:getNum(hs?.pointsAgainst)||0, aVal:getNum(as_?.pointsAgainst)||0, higherIsBetter:false },
+      { label:'Ασίστ',   hVal:getNum(hs?.assists??hs?.assistances)||0, aVal:getNum(as_?.assists??as_?.assistances)||0, higherIsBetter:true },
+      { label:'Ριμπάουντ',hVal:getNum(hs?.totalRebounds)||0,      aVal:getNum(as_?.totalRebounds)||0,      higherIsBetter:true },
+      { label:'PIR',      hVal:getNum(hs?.valuation)||0,           aVal:getNum(as_?.valuation)||0,          higherIsBetter:true },
+    ].map(({label,hVal,aVal,higherIsBetter})=>{
+      const total=hVal+aVal||1;
+      const hW=Math.round(hVal/total*100), aW=100-hW;
+      const hBetter=higherIsBetter?(hVal>=aVal):(hVal<=aVal);
+      const aBetter=!hBetter;
+      return `<div class="stat-compare-row">
+        <div class="sc-val ${hBetter?'better':''}">${hVal.toFixed(1)}</div>
+        <div class="sc-bar-wrap">
+          <div class="sc-bar-home" style="width:${hW}%"></div>
+          <div class="sc-bar-away" style="width:${aW}%"></div>
+        </div>
+        <div class="sc-label">${label}</div>
+        <div class="sc-bar-wrap">
+          <div class="sc-bar-home" style="width:${hW}%"></div>
+          <div class="sc-bar-away" style="width:${aW}%"></div>
+        </div>
+        <div class="sc-val ${aBetter?'better':''}">${aVal.toFixed(1)}</div>
+      </div>`;
+    }).join('');
+
+    el.innerHTML=`
+      <div class="matchup-card">
+        <div class="matchup-header">
+          <!-- Home -->
+          <div class="team-side">
+            <div class="team-logo-lg">${logoHtml(homeClub)}</div>
+            <div class="team-name-lg">${homeClub.name}</div>
+            <div class="team-record">${hSt.gamesWon??'—'}W – ${hSt.gamesLost??'—'}L</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">Home Team</div>
+            <div class="form-row">${formDots(homeForm)}</div>
+          </div>
+
+          <!-- Center -->
+          <div class="prediction-center">
+            <div class="win-prob-wrap">
+              <div class="win-prob-label">Πιθανότητα Νίκης</div>
+              <div class="win-prob-nums">
+                <span class="win-prob-num home">${hProbPct}%</span>
+                <span class="win-prob-num away">${aProbPct}%</span>
+              </div>
+              <div class="win-prob-bar-wrap">
+                <div class="win-prob-bar" style="width:${hProbPct}%;background:linear-gradient(90deg,var(--accent2),var(--accent));border-radius:5px;"></div>
+              </div>
+              <div class="predicted-score">Εκτιμ. αποτέλεσμα: ${pred.hExpPts} – ${pred.aExpPts}</div>
+              <div class="prediction-verdict">🏆 ${winner}</div>
+              <div style="font-size:10px;color:var(--muted);margin-top:4px">Confidence: ${confidence}%</div>
+            </div>
+          </div>
+
+          <!-- Away -->
+          <div class="team-side right">
+            <div class="team-logo-lg">${logoHtml(awayClub)}</div>
+            <div class="team-name-lg">${awayClub.name}</div>
+            <div class="team-record">${aSt.gamesWon??'—'}W – ${aSt.gamesLost??'—'}L</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">Away Team</div>
+            <div class="form-row">${formDots(awayForm)}</div>
+          </div>
+        </div>
+
+        <!-- Stat comparison -->
+        <div class="sec">Σύγκριση Στατιστικών</div>
+        <div class="stat-compare">${statRows}</div>
+
+        <div class="disclaimer">⚠️ Στατιστικό μοντέλο βασισμένο στη φόρμα και τα season averages. Δεν λαμβάνει υπόψη τραυματισμούς ή roster αλλαγές.</div>
+      </div>`;
+  } catch(e){ setErr(el, e.message); }
+}
+
+// ── PLAYER FORM & STREAK ───────────────────────────────────────────────────
+// Fetches per-game stats for each player via game-by-game box scores
+// Uses: /v3/competitions/E/seasons/E2025/rounds/{r}/boxscore (or results+stats)
+// Compares last 5 games avg vs season avg → hot/cold
+
+async function loadPlayerForm() {
+  const code = document.getElementById('predPlayerTeam').value;
+  const el   = document.getElementById('predPlayerOut');
+  if(!code){ setEmpty(el,'Επίλεξε ομάδα.'); return; }
+  setLoad(el);
+
+  try {
+    // Step 1: Get season averages for all players of the team
+    const seasonData = await apiFetch(`/v3/competitions/${COMP}/statistics/players/traditional`,{
+      SeasonMode:'Single', SeasonCode:sc(currentYear), statisticMode:'PerGame', limit:600
+    });
+    const allPlayers = seasonData.players||[];
+    const teamPlayers = allPlayers.filter(p=>(p.team?.code||'')===code);
+
+    if(!teamPlayers.length){ setEmpty(el,`Δεν βρέθηκαν παίκτες για ${code}.`); return; }
+
+    // Step 2: Get last 5 rounds of game-by-game stats for this team's players
+    // Fetch game codes from last 5 rounds
+    const BASE = `/v3/competitions/${COMP}/seasons/${sc(currentYear)}/rounds`;
+    const recentRounds = [];
+    for(let r=lastRound; r>Math.max(lastRound-5,0); r--) recentRounds.push(r);
+
+    // For each round, get results to find game code, then get player box score
+    const gameStatsArr = [];
+    await Promise.all(recentRounds.map(async r=>{
+      try {
+        const results = await apiFetch(`${BASE}/${r}/results`);
+        const games   = results.games||results.results||[];
+        const game    = games.find(g=>
+          g.homeTeam?.club?.code===code || g.awayTeam?.club?.code===code ||
+          g.homeClub?.code===code       || g.awayClub?.code===code
+        );
+        if(!game) return;
+        // gameCode from game object
+        const gameCode = game.gameCode || game.code || game.id;
+        if(!gameCode) return;
+
+        const stats = await apiFetch(`/v3/competitions/${COMP}/seasons/${sc(currentYear)}/games/${gameCode}/stats`);
+        const playerStats = stats.playerStats||stats.players||[];
+        const teamStats   = playerStats.filter(p=>
+          (p.team?.code||p.teamCode||'')===code
+        );
+        gameStatsArr.push({ round:r, players:teamStats });
+      } catch(e){}
+    }));
+
+    gameStatsArr.sort((a,b)=>b.round-a.round);
+
+    // Step 3: For each player, compute last-N-games avg vs season avg
+    const teamName = allClubs.find(c=>c.code===code)?.name||code;
+    const cards    = teamPlayers
+      .filter(p=>p.gamesPlayed>=5) // skip players with very few games
+      .map(p=>{
+        const playerCode = p.player?.code||p.playerCode;
+        const name       = p.player?.name||'—';
+
+        // Season avg
+        const seasonPts = getNum(p.score??p.pointsScored)||0;
+        const seasonReb = getNum(p.totalRebounds)||0;
+        const seasonAst = getNum(p.assists??p.assistances)||0;
+        const seasonPir = getNum(p.valuation)||0;
+
+        // Last N games
+        const recentGames = gameStatsArr.map(g=>{
+          return g.players.find(gp=>
+            gp.player?.code===playerCode || gp.playerCode===playerCode
+          );
+        }).filter(Boolean);
+
+        if(recentGames.length===0) return null; // no recent data
+
+        const avgOf = (arr, key) => {
+          const vals = arr.map(g=>getNum(g[key]||g.score)||0).filter(v=>v>0);
+          return vals.length ? vals.reduce((s,v)=>s+v,0)/vals.length : 0;
+        };
+
+        const recentPts = avgOf(recentGames, 'score');
+        const recentPir = avgOf(recentGames, 'valuation');
+
+        // Streak detection: compare recent PIR vs season PIR
+        const pirDiff   = seasonPir>0 ? (recentPir - seasonPir) / seasonPir : 0;
+        const streak    = pirDiff > 0.15 ? 'hot' : pirDiff > 0.05 ? 'warm' : pirDiff < -0.15 ? 'cold' : 'neutral';
+        const streakLabel = {
+          hot:  '🔥 Hot Streak',
+          warm: '📈 Above Average',
+          cold: '❄️ Cold Streak',
+          neutral: '➡️ On Form',
+        }[streak];
+
+        // Per-stat trend dots (above/below avg per game)
+        const trendDots = recentGames.slice(0,5).map(g=>{
+          const gPir = getNum(g.valuation)||0;
+          const cls  = gPir > seasonPir*1.05 ? 'above' : gPir < seasonPir*0.95 ? 'below' : 'near';
+          return `<div class="pfc-dot ${cls}" title="Round ${g.round||'?'}: PIR ${gPir.toFixed(0)}"></div>`;
+        }).join('');
+
+        // Expected next game
+        const expPts = ((seasonPts*0.5)+(recentPts*0.5)).toFixed(1);
+        const ptsCls = recentPts > seasonPts*1.1 ? 'up' : recentPts < seasonPts*0.9 ? 'down' : 'same';
+
+        return { name, streak, streakLabel, seasonPts, recentPts, seasonPir, recentPir, pirDiff, trendDots, expPts, ptsCls, seasonReb, seasonAst };
+      })
+      .filter(Boolean)
+      .sort((a,b)=>Math.abs(b.pirDiff)-Math.abs(a.pirDiff)); // most notable first
+
+    if(!cards.length){
+      setEmpty(el,'Δεν βρέθηκαν πρόσφατα δεδομένα αγώνων για αυτή την ομάδα.');
+      return;
+    }
+
+    el.innerHTML=`
+      <div class="sec">${teamName} · Player Form · Τελευταίοι ${Math.min(gameStatsArr.length,5)} αγώνες vs Season Avg</div>
+      <div class="player-form-grid">
+        ${cards.map(c=>`
+          <div class="player-form-card ${c.streak}">
+            <div class="pfc-header">
+              <div class="pfc-avatar">${ini(c.name)}</div>
+              <div>
+                <div class="pfc-name">${c.name}</div>
+                <div class="pfc-streak ${c.streak}">${c.streakLabel}</div>
+              </div>
+            </div>
+            <div class="pfc-stats">
+              <div class="pfc-stat">
+                <div class="pfc-stat-val ${c.ptsCls}">${c.recentPts.toFixed(1)}</div>
+                <div class="pfc-stat-label">Πόντοι</div>
+              </div>
+              <div class="pfc-stat">
+                <div class="pfc-stat-val">${c.seasonPts.toFixed(1)}</div>
+                <div class="pfc-stat-label">Avg σεζόν</div>
+              </div>
+              <div class="pfc-stat">
+                <div class="pfc-stat-val">${c.recentPir.toFixed(0)}</div>
+                <div class="pfc-stat-label">PIR τώρα</div>
+              </div>
+              <div class="pfc-stat">
+                <div class="pfc-stat-val">${c.seasonPir.toFixed(0)}</div>
+                <div class="pfc-stat-label">PIR avg</div>
+              </div>
+            </div>
+            <div class="pfc-trend">
+              <span class="pfc-trend-label">Form:</span>
+              <div class="pfc-trend-dots">${c.trendDots}</div>
+            </div>
+            <div class="pfc-exp">
+              Εκτίμηση επόμενου ματς: <strong>${c.expPts} πόντοι</strong>
+              (${c.pirDiff>=0?'+':''}${(c.pirDiff*100).toFixed(0)}% vs season PIR)
+            </div>
+          </div>`).join('')}
+      </div>
+      <div class="disclaimer">⚠️ Βασισμένο σε rolling average τελευταίων αγώνων. 🟢 Πάνω από avg · 🔴 Κάτω από avg · ⚫ Κοντά στο avg</div>`;
+
+  } catch(e){ setErr(el, e.message); }
+}
+
+// ── Sort ───────────────────────────────────────────────────────────────────
+function sortTbl(tblId, colIdx, thEl) {
+  const tbl=document.getElementById(tblId), tbody=tbl.querySelector('tbody');
+  const rows=Array.from(tbody.querySelectorAll('tr')), ths=tbl.querySelectorAll('th.sortable');
+  const wasDesc=thEl.classList.contains('desc');
+  ths.forEach(t=>t.classList.remove('asc','desc'));
+  thEl.classList.add(wasDesc?'asc':'desc');
+  const desc=!wasDesc;
+  rows.sort((a,b)=>{
+    const av=parseFloat(a.querySelectorAll('td')[colIdx]?.dataset?.n??0)||0;
+    const bv=parseFloat(b.querySelectorAll('td')[colIdx]?.dataset?.n??0)||0;
+    return desc?bv-av:av-bv;
+  });
+  rows.forEach(r=>tbody.appendChild(r));
+}
+
+window.addEventListener('DOMContentLoaded', ()=>loadSeason());
 </script>
 </body>
 </html>

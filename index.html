@@ -565,13 +565,22 @@ async function loadPlayerStats() {
   setLoad(el);
 
   try {
+    // Το TeamCode param αγνοείται από το API — φέρνουμε όλους και φιλτράρουμε client-side
     const data = await apiFetch(`/v3/competitions/${COMP}/statistics/players/traditional`, {
       SeasonMode: 'Single', SeasonCode: sc(currentYear),
-      statisticMode: mode, TeamCode: code, limit: 30
+      statisticMode: mode, limit: 600
     });
 
-    const players = data.players || [];
-    if (!players.length) { setEmpty(el,'Δεν βρέθηκαν παίκτες.'); return; }
+    const allPlayers = data.players || [];
+
+    // Client-side filter: κρατάμε μόνο τους παίκτες της επιλεγμένης ομάδας
+    // Το team code μπορεί να είναι στο p.team.code ή p.player.team.code
+    const players = allPlayers.filter(p => {
+      const tcode = p.team?.code || p.player?.team?.code || '';
+      return tcode === code;
+    });
+
+    if (!players.length) { setEmpty(el,`Δεν βρέθηκαν παίκτες για ${code}. (Total fetched: ${allPlayers.length})`); return; }
 
     players.sort((a,b) => (getNum(b.valuation)??0) - (getNum(a.valuation)??0));
 

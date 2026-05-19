@@ -868,7 +868,7 @@ async function loadPlayerForm() {
       SeasonMode:'Single', SeasonCode:sc(currentYear), statisticMode:'PerGame', limit:600
     });
     const allPlayers  = seasonData.players||[];
-    const teamPlayers = allPlayers.filter(p=>(p.team?.code||'')===code);
+    const teamPlayers = allPlayers.filter(p=>(p.team?.code||p.player?.team?.code||'')===code);
     if(!teamPlayers.length){ setEmpty(el,`Δεν βρέθηκαν παίκτες για ${code}.`); return; }
 
     // Find last 5 gameCodes for this team via v2 games

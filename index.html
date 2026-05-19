@@ -802,7 +802,54 @@ async function runPrediction() {
         <div class="sc-val ${aBetter?'better':''}">${aVal.toFixed(1)}</div>
       </div>`;
     }).join('');
+   // ── Analysis bullets ──────────────────────────────────────────────
+    const hForm5 = homeForm.slice(0,5);
+    const aForm5 = awayForm.slice(0,5);
+    const hW5 = hForm5.filter(g=>g.won).length;
+    const aW5 = aForm5.filter(g=>g.won).length;
 
+    const hPtsVal = getNum(hs?.pointsScored??hs?.score)||0;
+    const aPtsVal = getNum(as_?.pointsScored??as_?.score)||0;
+    const hDefVal = getNum(hs?.pointsAgainst)||0;
+    const aDefVal = getNum(as_?.pointsAgainst)||0;
+
+    const verdictLabel = Math.abs(hProbPct-50) >= 20
+      ? (hProbPct>50 ? '🏆 Σαφές φαβορί η Home' : '🏆 Σαφές φαβορί η Away')
+      : Math.abs(hProbPct-50) >= 10
+      ? (hProbPct>50 ? '📊 Ελαφρό προβάδισμα Home' : '📊 Ελαφρό προβάδισμα Away')
+      : '⚖️ Ισορροπημένο ματς';
+
+    const bullets = [
+      {
+        icon: hW5 >= aW5 ? '✅' : '❌',
+        home: true,
+        text: `Φόρμα: ${homeClub.name} ${hW5}Ν-${hForm5.length-hW5}Η vs ${awayClub.name} ${aW5}Ν-${aForm5.length-aW5}Η (τελ. ${hForm5.length} αγώνες)`
+      },
+      {
+        icon: hPtsVal >= aPtsVal ? '✅' : '❌',
+        home: hPtsVal >= aPtsVal,
+        text: `Επίθεση: ${homeClub.name} ${hPtsVal.toFixed(1)} vs ${awayClub.name} ${aPtsVal.toFixed(1)} πόντοι avg`
+      },
+      {
+        icon: hDefVal <= aDefVal ? '✅' : '❌',
+        home: hDefVal <= aDefVal,
+        text: `Άμυνα: ${homeClub.name} δέχεται ${hDefVal.toFixed(1)} vs ${awayClub.name} ${aDefVal.toFixed(1)} πόντοι avg`
+      },
+      {
+        icon: (hSt.winPct||0) >= (aSt.winPct||0) ? '✅' : '❌',
+        home: (hSt.winPct||0) >= (aSt.winPct||0),
+        text: `Win%: ${homeClub.name} ${hSt.winPct||0}% vs ${awayClub.name} ${aSt.winPct||0}%`
+      },
+      { icon: '🏠', home: true, text: `Home advantage: +5% boost για ${homeClub.name}` },
+    ].map(b=>`<li style="padding:5px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--muted2)">${b.icon} ${b.text}</li>`).join('');
+
+    const analysisHtml = `
+      <div style="margin-top:20px;padding:16px;background:var(--bg3);border-radius:8px;">
+        <div class="sec">Ανάλυση Πρόβλεψης</div>
+        <div style="font-family:var(--fh);font-size:18px;font-weight:800;color:var(--accent);margin-bottom:12px">${verdictLabel}</div>
+        <ul style="list-style:none;padding:0">${bullets}</ul>
+      </div>`;
+   
     el.innerHTML=`
       <div class="matchup-card">
         <div class="matchup-header">
@@ -845,9 +892,9 @@ async function runPrediction() {
         <!-- Stat comparison -->
         <div class="sec">Σύγκριση Στατιστικών</div>
         <div class="stat-compare">${statRows}</div>
-
-        <div class="disclaimer">⚠️ Στατιστικό μοντέλο βασισμένο στη φόρμα και τα season averages. Δεν λαμβάνει υπόψη τραυματισμούς ή roster αλλαγές.</div>
-      </div>`;
+${analysisHtml}
+        <div class="disclaimer" style="margin-top:12px">⚠️ Στατιστικό μοντέλο βασισμένο στη φόρμα και τα season averages. Δεν λαμβάνει υπόψη τραυματισμούς ή roster αλλαγές.</div>
+        </div>`;
   } catch(e){ setErr(el, e.message); }
 }
 

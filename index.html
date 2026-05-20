@@ -985,23 +985,27 @@ async function loadPlayerForm() {
           return vals.reduce((s,v)=>s+v,0)/vals.length;
         };
 
-        const recentPts = avgOf(recentGames,'score','points','pointsScored');
-        const recentPir = avgOf(recentGames,'valuation','pir');
+        const recentPts = avgOf(recentGames.map(g=>g.stats||g),'points','score','pointsScored');
+        const recentPir = avgOf(recentGames.map(g=>g.stats||g),'valuation','pir');
+        const recentReb = avgOf(recentGames.map(g=>g.stats||g),'totalRebounds','rebounds');
+        const recentAst = avgOf(recentGames.map(g=>g.stats||g),'assistances','assists');
 
         const pirDiff    = seasonPir>0 ? (recentPir-seasonPir)/seasonPir : 0;
         const streak     = pirDiff>0.15?'hot':pirDiff>0.05?'warm':pirDiff<-0.15?'cold':'neutral';
         const streakLabel= {hot:'🔥 Hot Streak',warm:'📈 Above Average',cold:'❄️ Cold Streak',neutral:'➡️ On Form'}[streak];
 
         const trendDots = recentGames.slice(0,5).map(g=>{
-          const gPir = getNum(g.valuation??g.pir)||0;
+          const gPir = getNum((g.stats||g).valuation)||(getNum((g.stats||g).pir))||0;
           const cls  = gPir>seasonPir*1.05?'above':gPir<seasonPir*0.95?'below':'near';
           return `<div class="pfc-dot ${cls}"></div>`;
         }).join('');
 
         const expPts = ((seasonPts*0.5)+(recentPts*0.5)).toFixed(1);
+        const expReb  = ((getNum(p.totalRebounds)||0)*0.5 + recentReb*0.5).toFixed(1);
+        const expAst  = ((getNum(p.assists??p.assistances)||0)*0.5 + recentAst*0.5).toFixed(1);
         const ptsCls = recentPts>seasonPts*1.1?'up':recentPts<seasonPts*0.9?'down':'same';
 
-        return { name, streak, streakLabel, seasonPts, recentPts, seasonPir, recentPir, pirDiff, trendDots, expPts, ptsCls };
+        return { name, streak, streakLabel, seasonPts, recentPts, seasonPir, recentPir, recentReb, recentAst, pirDiff, trendDots, expPts, expReb, expAst, ptsCls };
       })
       .filter(Boolean)
       .sort((a,b)=>Math.abs(b.pirDiff)-Math.abs(a.pirDiff));
@@ -1020,20 +1024,22 @@ async function loadPlayerForm() {
                 <div class="pfc-streak ${c.streak}">${c.streakLabel}</div>
               </div>
             </div>
-            <div class="pfc-stats">
+            <div class="pfc-stats" style="grid-template-columns:repeat(3,1fr)">
               <div class="pfc-stat"><div class="pfc-stat-val ${c.ptsCls}">${c.recentPts.toFixed(1)}</div><div class="pfc-stat-label">Πόντοι</div></div>
+              <div class="pfc-stat"><div class="pfc-stat-val">${c.recentReb.toFixed(1)}</div><div class="pfc-stat-label">Ριμπ</div></div>
+              <div class="pfc-stat"><div class="pfc-stat-val">${c.recentAst.toFixed(1)}</div><div class="pfc-stat-label">Ασίστ</div></div>
               <div class="pfc-stat"><div class="pfc-stat-val">${c.seasonPts.toFixed(1)}</div><div class="pfc-stat-label">Avg σεζόν</div></div>
               <div class="pfc-stat"><div class="pfc-stat-val">${c.recentPir.toFixed(0)}</div><div class="pfc-stat-label">PIR τώρα</div></div>
               <div class="pfc-stat"><div class="pfc-stat-val">${c.seasonPir.toFixed(0)}</div><div class="pfc-stat-label">PIR avg</div></div>
-            </div>
+            </div> 
             <div class="pfc-trend">
               <span class="pfc-trend-label">Form:</span>
               <div class="pfc-trend-dots">${c.trendDots}</div>
             </div>
             <div class="pfc-exp">
-              Εκτίμηση επόμενου: <strong>${c.expPts} πόντοι</strong>
-              (${c.pirDiff>=0?'+':''}${(c.pirDiff*100).toFixed(0)}% vs season PIR)
-            </div>
+            Εκτίμηση: <strong>${c.expPts} πόντοι</strong> · <strong>${c.expReb} ριμπ</strong> · <strong>${c.expAst} ασίστ</strong>
+            (${c.pirDiff>=0?'+':''}${(c.pirDiff*100).toFixed(0)}% vs season PIR)
+          </div>
           </div>`).join('')}
       </div>
       <div class="disclaimer">⚠️ Rolling average τελευταίων αγώνων. 🟢 Πάνω από avg · 🔴 Κάτω · ⚫ Κοντά</div>`;
